@@ -1,15 +1,7 @@
 {
+  "rewrites": [{ "source": "/", "destination": "/index.html" }],
   "headers": [
-    {
-      "source": "/",
-      "headers": [{ "key": "Content-Type", "value": "text/html; charset=utf-8" }]
-    },
-    {
-      "source": "/index.html",
-      "headers": [{ "key": "Content-Type", "value": "text/html; charset=utf-8" }]
-    }
-  ],
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/", "headers": [{ "key": "Content-Type", "value": "text/html; charset=utf-8" }] },
+    { "source": "/index.html", "headers": [{ "key": "Content-Type", "value": "text/html; charset=utf-8" }] }
   ]
 }
