@@ -1,530 +1,637 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Product Execution (AI as Accelerator)</title>
+  <meta name="description" content="I design, deploy, and service products so they get adopted and deliver measurable ROI. Explore applied experiments and an execution framework that ties products + services to outcomes.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <style>
+    :root { color-scheme: dark; --accent-color:#F7FF00; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Inter',sans-serif; background:#0a0d16; color:#e0e7ff; font-size:17px; }
+    h1,h2 { font-family:'Chakra Petch',sans-serif; }
+
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);border-radius:1rem;box-shadow:0 10px 15px -3px rgb(0 0 0 / .1),0 4px 6px -4px rgb(0 0 0 / .1);backdrop-filter:blur(16px)}
+    .cta-primary{background:var(--accent-color);color:#0a0d16;font-weight:600}
+    .focus-ring:focus-visible{outline:2px solid var(--accent-color);outline-offset:2px}
+    .nav-link.active{color:#fff}
+
+    #homepage-story{position:relative}
+    .story-stage{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+    #story-canvas-container{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:1;pointer-events:none}
+    .story-content{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+    .story-stage.active .story-content{opacity:1;transform:translateY(0)}
+    .node{position:absolute;opacity:0;transition:opacity .8s ease .5s}
+    .story-stage.active .node{opacity:1}
+    #node-1{top:25%;left:15%} #node-2{top:25%;right:15%} #node-3{top:75%;left:50%;transform:translateX(-50%)}
+
+    .framework-svg{border-radius:1rem;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.02);cursor:pointer}
+    .framework-svg .flow-path{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw-line 3s ease-out forwards}
+    .framework-svg .node-circle,.framework-svg .node-text{opacity:0;animation:fade-in 1s ease-out forwards}
+    @keyframes draw-line{to{stroke-dashoffset:0}}
+    @keyframes fade-in{to{opacity:1}}
+    .framework-svg .ai-pulse{animation:pulse-glow 3s infinite ease-in-out}
+    @keyframes pulse-glow{0%,100%{filter:drop-shadow(0 0 5px #0d9488)}50%{filter:drop-shadow(0 0 15px #0d9488)}}
+    #framework-tooltip{position:fixed;background:rgba(10,13,22,.8);border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:.5rem .75rem;font-size:.875rem;backdrop-filter:blur(8px);pointer-events:none;opacity:0;transition:opacity .3s ease;z-index:120}
+
+    .story-modal{position:fixed;inset:0;z-index:100;overflow:hidden;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s ease}
+    .story-modal.active{opacity:1}
+    .story-background{position:absolute;inset:0;background-size:200% 200%;transition:background-image 1.5s ease}
+    .bg-clubos{background-image:linear-gradient(45deg,#022c22,#0a1a3a);animation:gradient-flow 20s ease infinite}
+    .bg-spendsensei{background-image:linear-gradient(45deg,#0f172a,#312e81);animation:gradient-flow 20s ease infinite}
+    .bg-coffee{background-image:linear-gradient(45deg,#422006,#1e1b4b);animation:gradient-flow 20s ease infinite}
+    .bg-learnai{background-image:linear-gradient(45deg,#1d4ed8,#5b21b6);animation:gradient-flow 20s ease infinite}
+    .bg-mentalhealth{background-image:linear-gradient(45deg,#064e3b,#1e3a8a);animation:gradient-flow 20s ease infinite}
+    @keyframes gradient-flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;animation:pan-grid 20s linear infinite;opacity:0;transition:opacity 1s ease .5s}
+    .story-modal.active .grid-lines{opacity:1}
+    @keyframes pan-grid{0%{background-position:0 0}100%{background-position:40px 40px}}
+    .story-step{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s}
+    .story-step.active{opacity:1;visibility:visible}
+    .story-element{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+    .story-step.active .story-element{opacity:1;transform:translateY(0)}
+    .glowing-card{background:rgba(10,13,22,.5);border:1px solid rgba(255,255,255,.15);border-radius:1rem;box-shadow:0 0 20px rgba(20,198,166,.2),0 0 40px rgba(122,90,248,.1);backdrop-filter:blur(10px)}
+    .ai-orb{position:absolute;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle,rgba(20,198,166,.8) 0%,rgba(122,90,248,.6) 100%);box-shadow:0 0 15px rgba(20,198,166,.5),0 0 30px rgba(20,198,166,.3);transition:all 1s ease;animation:pulse 3s infinite ease-in-out}
+    @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 15px rgba(20,198,166,.5),0 0 30px rgba(20,198,166,.3)}50%{transform:scale(1.05);box-shadow:0 0 25px rgba(20,198,166,.7),0 0 50px rgba(20,198,166,.5)}}
+    .flip-card-container{perspective:1000px}
+    .flip-card{position:relative;transform-style:preserve-3d;transition:transform .8s}
+    .flip-card-container.flipped .flip-card{transform:rotateY(180deg)}
+    .flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .flip-card-back{transform:rotateY(180deg)}
+
+    #chatbot-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:110}
+    #chatbot-toggle{width:3.5rem;height:3.5rem;border-radius:9999px;background-image:linear-gradient(to bottom right,#14c6a6,#7a5af8,#ec4899);box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);display:grid;place-items:center;animation:pulse 2s infinite;transition:transform .3s ease}
+    #chatbot-toggle:hover{transform:scale(1.1)}
+    #chatbot-window{position:absolute;bottom:0;right:0;width:22rem;height:70vh;max-height:500px;background-color:rgba(10,13,22,.8);border:1px solid rgba(255,255,255,.1);border-radius:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);backdrop-filter:blur(12px);display:flex;flex-direction:column;transform-origin:bottom right;transition:opacity .3s ease,transform .3s ease}
+    .message-box{position:fixed;inset:0;background-color:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease;pointer-events:none}
+    .message-box.active{opacity:1;pointer-events:auto}
+    .thinking-bubble{display:flex;gap:.25rem;align-items:center;padding:.75rem}
+    .thinking-bubble span{width:.5rem;height:.5rem;background-color:#a5b4fc;border-radius:9999px;animation:bounce 1.2s infinite ease-in-out}
+    .thinking-bubble span:nth-child(2){animation-delay:.2s}
+    .thinking-bubble span:nth-child(3){animation-delay:.4s}
+    @keyframes bounce{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+    .experiment-card{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+    .experiment-card.visible{opacity:1;transform:translateY(0)}
+
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none !important;transition:none !important}
+      .story-stage,.story-content{transform:none !important}
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en" class="dark"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Digital Product Execution (AI as Accelerator)&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="description" content="I design, deploy, and service products so they get adopted and deliver measurable ROI. Explore applied experiments and an execution framework that ties products + services to outcomes."&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preload" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;noscript&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/noscript&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color-scheme: dark;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>--accent-color: #F7FF00; /* Cyber Yellow */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>html { scroll-behavior: smooth; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Inter', sans-serif; background-color: #0a0d16; color: #e0e7ff; font-size: 17px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1, h2 { font-family: 'Chakra Petch', sans-serif; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); backdrop-filter: blur(16px); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-primary {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--accent-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #0a0d16;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.focus-ring:focus-visible {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>outline: 2px solid var(--accent-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>outline-offset: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-link.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#homepage-story { position: relative; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#story-canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; pointer-events: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-content { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-stage.active .story-content { opacity: 1; transform: translateY(0); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.node { position: absolute; opacity: 0; transition: opacity 0.8s ease 0.5s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-stage.active .node { opacity: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#node-1 { top: 25%; left: 15%; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#node-2 { top: 25%; right: 15%; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#node-3 { top: 75%; left: 50%; transform: translateX(-50%); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.framework-svg { border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.02); cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.framework-svg .flow-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-line 3s ease-out forwards; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.framework-svg .node-circle, .framework-svg .node-text { opacity: 0; animation: fade-in 1s ease-out forwards; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes draw-line { to { stroke-dashoffset: 0; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fade-in { to { opacity: 1; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.framework-svg .ai-pulse { animation: pulse-glow 3s infinite ease-in-out; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse-glow { 0%, 100% { filter: drop-shadow(0 0 5px #0d9488); } 50% { filter: drop-shadow(0 0 15px #0d9488); } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#framework-tooltip { position: fixed; background-color: rgba(10, 13, 22, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; backdrop-filter: blur(8px); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 120; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-modal { position: fixed; inset: 0; z-index: 100; overflow: hidden; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-modal.active { opacity: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-background { position: absolute; inset: 0; background-size: 200% 200%; transition: background-image 1.5s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-clubos { background-image: linear-gradient(45deg, #022c22, #0a1a3a); animation: gradient-flow 20s ease infinite; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-spendsensei { background-image: linear-gradient(45deg, #0f172a, #312e81); animation: gradient-flow 20s ease infinite; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-coffee { background-image: linear-gradient(45deg, #422006, #1e1b4b); animation: gradient-flow 20s ease infinite; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-learnai { background-image: linear-gradient(45deg, #1d4ed8, #5b21b6); animation: gradient-flow 20s ease infinite; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-mentalhealth { background-image: linear-gradient(45deg, #064e3b, #1e3a8a); animation: gradient-flow 20s ease infinite; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; animation: pan-grid 20s linear infinite; opacity: 0; transition: opacity 1s ease 0.5s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-modal.active .grid-lines { opacity: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pan-grid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-step { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-step.active { opacity: 1; visibility: visible; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-element { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.story-step.active .story-element { opacity: 1; transform: translateY(0); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.glowing-card { background: rgba(10, 13, 22, 0.5); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 1rem; box-shadow: 0 0 20px rgba(20, 198, 166, 0.2), 0 0 40px rgba(122, 90, 248, 0.1); backdrop-filter: blur(10px); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ai-orb { position: absolute; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(20,198,166,0.8) 0%, rgba(122,90,248,0.6) 100%); box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3); transition: all 1s ease; animation: pulse 3s infinite ease-in-out; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(20,198,166,0.7), 0 0 50px rgba(20,198,166,0.5); } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.flip-card-container { perspective: 1000px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.flip-card { position: relative; transform-style: preserve-3d; transition: transform 0.8s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.flip-card-container.flipped .flip-card { transform: rotateY(180deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.flip-card-back { transform: rotateY(180deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#chatbot-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 110; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#chatbot-toggle { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background-image: linear-gradient(to bottom right, #14c6a6, #7a5af8, #ec4899); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); display: grid; place-items: center; animation: pulse 2s infinite; transition: transform 0.3s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#chatbot-toggle:hover { transform: scale(1.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#chatbot-window { position: absolute; bottom: 0; right: 0; width: 22rem; height: 70vh; max-height: 500px; background-color: rgba(10, 13, 22, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); backdrop-filter: blur(12px); display: flex; flex-direction: column; transform-origin: bottom right; transition: opacity 0.3s ease, transform 0.3s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.message-box { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.message-box.active { opacity: 1; pointer-events: auto; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.thinking-bubble { display: flex; gap: 0.25rem; align-items: center; padding: 0.75rem; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.thinking-bubble span { width: 0.5rem; height: 0.5rem; background-color: #a5b4fc; border-radius: 9999px; animation: bounce 1.2s infinite ease-in-out; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.thinking-bubble span:nth-child(2) { animation-delay: 0.2s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.thinking-bubble span:nth-child(3) { animation-delay: 0.4s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.experiment-card { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.experiment-card.visible { opacity: 1; transform: translateY(0); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (prefers-reduced-motion: reduce) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>* { animation: none !important; transition: none !important; }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>.story-stage, .story-content { transform: none !important; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;nav class="mx-auto flex max-w-6xl items-center justify-between p-4 text-indigo-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#" class="font-bold text-white focus-ring rounded"&gt;Bradley Fernandes&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hidden md:flex items-center gap-6 text-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#stage-3" class="nav-link hover:text-white focus-ring rounded"&gt;Case Studies&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#stage-4" class="nav-link hover:text-white focus-ring rounded"&gt;Framework&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#about" class="nav-link hover:text-white focus-ring rounded"&gt;About&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="/Bradley_Fernandes_CV.pdf" target="_blank" class="nav-link hover:text-white focus-ring rounded"&gt;Download CV&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#contact" class="cta-primary px-4 py-2 text-sm rounded-full shadow-lg hover:scale-105 transition-transform focus-ring"&gt;Work with me&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main id="homepage-story"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="story-canvas-container"&gt;&lt;canvas id="story-canvas"&gt;&lt;/canvas&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="stage-1" class="story-stage"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="story-content text-center px-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1 id="main-headline" class="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-violet-400"&gt;&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="hero-subheadline" class="mt-4 max-w-2xl mx-auto text-lg text-indigo-100"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="hero-quick-actions" class="mt-6 flex flex-wrap items-center justify-center gap-3"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="hero-outcomes-strip" class="mt-8 flex flex-wrap justify-center gap-2 text-xs text-indigo-200/90"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="stage-2" class="story-stage"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="story-content w-full h-full relative"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="node-1" class="node glowing-card p-4 text-center"&gt;&lt;h3 class="font-semibold text-teal-300"&gt;Principle-Driven Strategy&lt;/h3&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="node-2" class="node glowing-card p-4 text-center"&gt;&lt;h3 class="font-semibold text-teal-300"&gt;End-to-End Execution&lt;/h3&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="node-3" class="node glowing-card p-4 text-center"&gt;&lt;h3 class="font-semibold text-teal-300"&gt;AI as an Accelerator&lt;/h3&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="stage-3" class="story-stage bg-[#0a0d16]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="story-content w-full max-w-6xl mx-auto px-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 id="experiments-title" class="text-3xl font-bold text-center mb-4"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="social-proof-bar" class="mx-auto max-w-6xl px-6 mb-6"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="experiment-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="stage-4" class="story-stage bg-[#0a0d16]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="story-content w-full max-w-5xl mx-auto px-6 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 id="framework-title" class="text-3xl font-bold text-white mb-4"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="framework-subtitle" class="text-lg text-indigo-100 mb-8"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-teal-400/20 via-violet-500/20 to-pink-500/20 blur-2xl animate-glow"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg viewBox="0 0 800 400" class="framework-svg w-full"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;defs&gt;&lt;linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%"&gt;&lt;stop offset="0%" style="stop-color:#14c6a6" /&gt;&lt;stop offset="100%" style="stop-color:#7a5af8" /&gt;&lt;/linearGradient&gt;&lt;filter id="glow" x="-50%" y="-50%" width="200%" height="200%"&gt;&lt;feGaussianBlur stdDeviation="4" result="coloredBlur"/&gt;&lt;feMerge&gt;&lt;feMergeNode in="coloredBlur"/&gt;&lt;feMergeNode in="SourceGraphic"/&gt;&lt;/feMerge&gt;&lt;/filter&gt;&lt;/defs&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;path d="M 100 200 C 150 100, 250 100, 300 200 S 450 300, 500 200 S 650 100, 700 200" stroke="url(#flowGradient)" stroke-width="2" fill="none" class="flow-path" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;path d="M 400 50 V 160" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: 0.5s;"/&gt;&lt;path d="M 400 350 V 240" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: 0.7s;"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;g class="node-circle" style="animation-delay: 1s;" data-tooltip="The core belief that guides the work."&gt;&lt;circle cx="100" cy="200" r="10" fill="#14c6a6" filter="url(#glow)"/&gt;&lt;/g&gt;&lt;text x="100" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.2s;"&gt;Principle&lt;/text&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;g class="node-circle" style="animation-delay: 1.5s;" data-tooltip="The specific business pain point being addressed."&gt;&lt;circle cx="300" cy="200" r="10" fill="#3b82f6" filter="url(#glow)"/&gt;&lt;/g&gt;&lt;text x="300" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.7s;"&gt;Problem&lt;/text&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;g class="node-circle" style="animation-delay: 2s;" data-tooltip="The product and the services that ensure its adoption."&gt;&lt;circle cx="500" cy="200" r="10" fill="#8b5cf6" filter="url(#glow)"/&gt;&lt;/g&gt;&lt;text x="500" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;"&gt;Execution&lt;/text&gt;&lt;text x="500" y="255" fill="#a5b4fc" font-size="12" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;"&gt;(Product + Services)&lt;/text&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;g class="node-circle" style="animation-delay: 2.5s;" data-tooltip="The measurable business effect: revenue, savings, or risk reduction."&gt;&lt;circle cx="700" cy="200" r="10" fill="#ec4899" filter="url(#glow)"/&gt;&lt;/g&gt;&lt;text x="700" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.7s;"&gt;Outcomes&lt;/text&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;g class="ai-pulse" data-tooltip="AI applied to amplify speed, quality, or value."&gt;&lt;circle cx="400" cy="200" r="25" fill="#0a0d16" stroke="#0d9488" stroke-width="2"/&gt;&lt;text x="400" y="205" fill="#14c6a6" font-size="18" text-anchor="middle" font-weight="bold" class="node-text" style="animation-delay: 0.8s;"&gt;AI&lt;/text&gt;&lt;/g&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="about" class="py-24 bg-[#0a0d16] relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-4xl mx-auto px-6 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;h2 id="about-headline" class="text-3xl font-bold text-white mb-4"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;p id="about-narrative" class="text-lg text-indigo-100"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>&lt;section id="contact" class="py-24 bg-gradient-to-t from-[#0a0d16] to-[#0c0d1e] relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-4xl mx-auto px-6 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;h2 id="contact-headline" class="text-3xl font-bold text-white mb-4"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;p id="contact-copy" class="text-lg text-indigo-100 mb-8"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="footer-line"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="modal-container"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="message-box-container"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="framework-tooltip"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="chatbot-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="chatbot-window" class="hidden opacity-0 scale-95"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center justify-between p-4 border-b border-white/10 bg-white/5"&gt;&lt;div class="flex items-center gap-2"&gt;&lt;div class="w-3 h-3 rounded-full bg-gradient-to-tr from-teal-400 to-pink-500"&gt;&lt;/div&gt;&lt;span class="font-semibold text-white"&gt;AI Guide&lt;/span&gt;&lt;/div&gt;&lt;button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;line x1="18" y1="6" x2="6" y2="18"&gt;&lt;/line&gt;&lt;line x1="6" y1="6" x2="18" y2="18"&gt;&lt;/line&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="chatbot-messages" class="flex-1 p-4 space-y-4 overflow-y-auto"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="p-4 border-t border-white/10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="chatbot-quick-replies" class="flex flex-wrap gap-2 mb-3"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input id="chatbot-input" type="text" placeholder="Ask me anything..." class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="chatbot-toggle" class="focus-ring"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const siteContent = {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>global: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>brandLine: "Deploying products + services for business outcomes.",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>footerLine: "© Bradley Fernandes — Applied AI &amp; Product Execution",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>cvPath: "/Bradley_Fernandes_CV.pdf",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>email: "bradley@example.com",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>calendarLink: "https://cal.com/yourhandle/intro"</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>home: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headline: "Great concepts are easy. Measurable outcomes are hard.",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>subheadline: "I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster. See proof below or grab a quick intro."</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>framework: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>title: "Execution that guarantees ROI",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>subtitle: "Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality."</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>experiments: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>title: "Applied Experiments (Not Startups)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>intro: "Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution."</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>about: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headline: "What you get when we work together",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>narrative: "I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value."</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>contact: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headline: "Start with a small win",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>copy: "Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value."</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbot: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>greeting: "Welcome! I'm the AI guide for this portfolio. Think of me as your co-pilot. What are you curious about?",</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>experimentsData: [</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "clubos", title: "ClubOS", tagline: "Operating system for sports clubs", description: "Streamline scheduling and communication while unlocking sponsor revenue.", details: { for: "Sports club organizers", problemShort: "Wasted hours on admin &amp; missed revenue", principle: "Vertical SaaS succeeds when it matches real workflows and embeds adoption into the product.", problem: "Clubs waste hours juggling schedules and messages across apps, and they miss sponsor revenue because visibility is fragmented.", execution: { product: "Integrated scheduling, team comms, and sponsor placement tools.", services: "Onboarding playbooks for club admins, sponsor activation templates, and season-start setup support." }, roi: "10+ admin hours saved per week", ai: "Automated schedule suggestions, conflict detection, and drafted announcements tailored to age group, team, and tone." } },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "spendsensei", title: "Spend Sensei", tagline: "AI-powered spend intelligence", description: "Catch leakage and anomalies early—make finance proactive.", details: { for: "Finance &amp; Ops leaders", problemShort: "Leakage and anomalies spotted too late", principle: "Finance should be transparent, predictive, and actionable—built on continuous signal, not month-end surprises.", problem: "Leakage and anomalies go unnoticed until close; investigations are manual, slow, and expensive.", execution: { product: "Real-time anomaly detection, variance analysis, and drill-downs by vendor, GL, and cost center.", services: "FinOps advisory to embed alerts in rituals, training for anomaly triage, and governance templates." }, roi: "1–3% controllable spend reduction", ai: "Predictive detection on top of time series and seasonality, natural-language queries (“Why did SaaS spend spike in Q2?”), and autogenerated variance explanations." } },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "coffee", title: "Coffee Trading Dashboard", tagline: "Fair, transparent agri-trade", description: "Give estate owners visibility and pricing power in fragmented markets.", details: { for: "Supply chain managers", problemShort: "Lack of market visibility &amp; buyer access", principle: "Transparency unlocks fairer value distribution in fragmented markets.", problem: "Estate owners lack live price clarity and buyer access, leading to weaker negotiations and reliance on intermediaries.", execution: { product: "Live price dashboard, buyer directory, quality/lot tracking, and deal room.", services: "Training for data capture and quality metrics, buyer matchmaking workflows, and export documentation support." }, roi: "Higher farm-gate prices", ai: "Market trend prediction by grade and region, fair-price recommendations, buyer/lot matching based on quality and history." } },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "learnai", title: "Learn with AI", tagline: "A new way to master anything", description: "Replace passive courses with adaptive, applied coaching.", details: { for: "HR &amp; Enablement teams", problemShort: "Static courses don't build capability", principle: "Learning sticks when it’s active, adaptive, and immediately applied.", problem: "Static courses don’t adapt to learner context; completion doesn’t equal capability.", execution: { product: "Study mode with targeted micro-challenges and prompts, progress dashboards, and reflections.", services: "Workshops, team playbooks, and enablement sprints tied to real work." }, roi: "Faster skill acquisition", ai: "Personalized coaching, adaptive paths based on performance, instant feedback on real artifacts (docs, code, decks)." } },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "mentalhealth", title: "Mental Health Tech", tagline: "Journaling Meets Wearables", description: "A wellbeing companion that connects mood journaling with wearable data, giving a complete view of mental health.", details: { for: "Individuals, Employers, Providers", problemShort: "Siloed mental &amp; physical health data", principle: "Mental health isn’t just in the mind or the body — it’s in the connection between the two.", problem: "Journaling apps capture feelings. Wearables capture stress, sleep, and movement. But they live in silos — missing the complete picture of wellbeing.", execution: { product: "Daily micro-journaling prompts, wearable sync with mood overlays, and smart insights.", services: "Optional therapist dashboard for richer, precision care." }, roi: "Self-awareness &amp; early burnout detection", ai: "NLP interprets journal tone, pattern detection links mood with biometrics, and predictive nudges." } },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>]</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ChevronRightIcon = `&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-5 w-5 text-indigo-400"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const XIcon = `&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"&gt;&lt;path d="M18 6 6 18"/&gt;&lt;path d="m6 6 12 12"/&gt;&lt;/svg&gt;`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Populate Content ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelector('nav &gt; a.font-bold').textContent = "Bradley Fernandes";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('main-headline').textContent = siteContent.home.headline;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('hero-subheadline').textContent = siteContent.home.subheadline;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('experiments-title').textContent = siteContent.experiments.title;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('experiments-intro').textContent = siteContent.experiments.intro;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('framework-title').textContent = siteContent.framework.title;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('framework-subtitle').textContent = siteContent.framework.subtitle;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('about-headline').textContent = siteContent.about.headline;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('about-narrative').textContent = siteContent.about.narrative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('contact-headline').textContent = siteContent.contact.headline;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('contact-copy').textContent = siteContent.contact.copy;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('footer-line').textContent = siteContent.global.footerLine;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.title = "Bradley Fernandes — Digital Product Execution";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Populate Dynamic Elements ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('hero-quick-actions').innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#stage-3" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring"&gt;See Case Studies&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#stage-4" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring"&gt;View framework&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="${siteContent.global.cvPath}" target="_blank" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring"&gt;Download CV&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#contact" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 focus-ring"&gt;Book intro&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('hero-outcomes-strip').innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="rounded-full bg-white/5 border border-white/10 px-3 py-1"&gt;Time‑to‑value ↓&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="rounded-full bg-white/5 border border-white/10 px-3 py-1"&gt;Adoption ↑&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="rounded-full bg-white/5 border border-white/10 px-3 py-1"&gt;Opex ↓&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="rounded-full bg-white/5 border border-white/10 px-3 py-1"&gt;Audit readiness ↑&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('social-proof-bar').innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"&gt;&lt;div class="text-2xl font-semibold text-white"&gt;10–15 hrs&lt;/div&gt;&lt;div class="text-sm text-indigo-300"&gt;Admin time saved / club / week*&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"&gt;&lt;div class="text-2xl font-semibold text-white"&gt;1–3%&lt;/div&gt;&lt;div class="text-sm text-indigo-300"&gt;Controllable spend reduction&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"&gt;&lt;div class="text-2xl font-semibold text-white"&gt;Early Detection&lt;/div&gt;&lt;div class="text-sm text-indigo-300"&gt;Proactive wellbeing insights&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="mt-2 text-[11px] text-indigo-400/80 text-center"&gt;*Modeled results; project-dependent.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('contact-ctas').innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring"&gt;Book intro on LinkedIn&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Homepage Storyflow Animation Logic ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const canvas = document.getElementById('story-canvas');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const stages = document.querySelectorAll('.story-stage');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let width, height;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let orb = { x: 0, y: 0, radius: 0, targetRadius: 5 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let particles = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let lines = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; orb.x = width / 2; orb.y = height / 2; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>function createParticles() { particles = []; let density = window.innerWidth &lt; 768 ? 25 : 50; for (let i = 0; i &lt; density; i++) { particles.push({ x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 1.5, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, }); } }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>function animate() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (document.documentElement.dataset.motion === 'reduce') return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ctx.clearRect(0, 0, width, height);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particles.forEach(p =&gt; { p.x += p.vx; p.y += p.vy; if (p.x &lt; 0 || p.x &gt; width) p.vx *= -1; if (p.y &lt; 0 || p.y &gt; height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(20, 198, 166, 0.3)'; ctx.fill(); });</p>
-<p class="p1"><span class="Apple-converted-space">                </span>orb.radius += (orb.targetRadius - orb.radius) * 0.08;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ctx.beginPath(); ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2); const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius); gradient.addColorStop(0, 'rgba(20, 198, 166, 0.8)'); gradient.addColorStop(1, 'rgba(122, 90, 248, 0)'); ctx.fillStyle = gradient; ctx.fill();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>lines.forEach(line =&gt; { ctx.beginPath(); ctx.moveTo(line.x1, line.y1); ctx.lineTo(line.x2, line.y2); ctx.strokeStyle = `rgba(20, 198, 166, ${line.opacity})`; ctx.lineWidth = 1; ctx.stroke(); });</p>
-<p class="p1"><span class="Apple-converted-space">                </span>requestAnimationFrame(animate);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const stageObserver = new IntersectionObserver((entries) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>entries.forEach(entry =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (entry.isIntersecting) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stageId = entry.target.id;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>document.querySelectorAll('.nav-link').forEach(link =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>link.classList.toggle('active', link.getAttribute('href') === `#${stageId}`);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stageIndex = Array.from(stages).indexOf(entry.target);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>stages.forEach((stage, index) =&gt; stage.classList.toggle('active', index === stageIndex));</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const scrollY = window.scrollY;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stageHeight = window.innerHeight;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stage1Progress = Math.min(1, scrollY / stageHeight);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>orb.targetRadius = 5 + stage1Progress * 150;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stage2Start = stageHeight;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stage2Progress = Math.max(0, Math.min(1, (scrollY - stage2Start) / stageHeight));</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>lines = [];</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (stage2Progress &gt; 0.1) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const node1 = document.getElementById('node-1').getBoundingClientRect(); const node2 = document.getElementById('node-2').getBoundingClientRect(); const node3 = document.getElementById('node-3').getBoundingClientRect();</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>lines.push({ x1: width/2, y1: height/2, x2: node1.left + node1.width/2, y2: node1.top + node1.height/2, opacity: Math.min(0.5, stage2Progress) });</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>lines.push({ x1: width/2, y1: height/2, x2: node2.left + node2.width/2, y2: node2.top + node2.height/2, opacity: Math.min(0.5, stage2Progress) });</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>lines.push({ x1: width/2, y1: height/2, x2: node3.left + node3.width/2, y2: node3.top + node3.height/2, opacity: Math.min(0.5, stage2Progress) });</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stage3Start = stageHeight * 2;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const stage3Progress = Math.max(0, (scrollY - stage3Start) / (stageHeight / 2));</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>canvas.style.opacity = Math.max(0, 1 - stage3Progress);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, { threshold: 0.5 });</p>
-<p class="p1"><span class="Apple-converted-space">            </span>stages.forEach(stage =&gt; stageObserver.observe(stage));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.addEventListener('resize', () =&gt; { resize(); createParticles(); });</p>
-<p class="p1"><span class="Apple-converted-space">            </span>resize(); createParticles(); animate();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Interactive Framework ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const tooltip = document.getElementById('framework-tooltip');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.framework-svg g').forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>el.addEventListener('mouseenter', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const text = e.currentTarget.dataset.tooltip;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (!text) return;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tooltip.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tooltip.style.opacity = '1';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>el.addEventListener('mouseleave', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tooltip.style.opacity = '0';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>el.addEventListener('mousemove', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tooltip.style.left = `${e.clientX + 15}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tooltip.style.top = `${e.clientY}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Staggered Card Animation ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const cardObserver = new IntersectionObserver((entries) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>entries.forEach(entry =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (entry.isIntersecting) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const cards = entry.target.querySelectorAll('.experiment-card');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>cards.forEach((card, index) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>card.classList.add('visible');</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}, index * 150);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>cardObserver.unobserve(entry.target);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, { threshold: 0.1 });</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cardObserver.observe(document.getElementById('experiment-grid-container'));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Experiment Grid &amp; Modal Logic ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const gridContainer = document.getElementById('experiment-grid-container');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const modalContainer = document.getElementById('modal-container');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>function renderGrid() {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>gridContainer.innerHTML = siteContent.experimentsData.map(ex =&gt; `&lt;button data-id="${ex.id}" class="experiment-card card text-left p-5"&gt;&lt;div class="flex items-start justify-between gap-3"&gt;&lt;div&gt;&lt;h4 class="text-lg font-semibold"&gt;${ex.title}&lt;/h4&gt;&lt;p class="mt-1 text-xs uppercase tracking-wide text-indigo-300/90"&gt;${ex.tagline}&lt;/p&gt;&lt;/div&gt;${ChevronRightIcon}&lt;/div&gt;&lt;ul class="mt-3 space-y-1 text-[13px] text-indigo-100/90"&gt;&lt;li&gt;• For: ${ex.details?.for ?? "Ops/Finance/IT leaders"}&lt;/li&gt;&lt;li&gt;• Fixes: ${ex.details?.problemShort ?? ex.details.problem}&lt;/li&gt;&lt;li&gt;• Outcome: ${ex.details?.roi}&lt;/li&gt;&lt;/ul&gt;&lt;/button&gt;`).join('');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gridContainer.addEventListener('click', (e) =&gt; { const card = e.target.closest('.experiment-card'); if (card) { openStoryModal(siteContent.experimentsData.find(ex =&gt; ex.id === card.dataset.id)); } });</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function showMessageBox(message) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const container = document.getElementById('message-box-container');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const box = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>box.className = 'message-box';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>box.innerHTML = `&lt;div class="glowing-card p-8 text-center max-w-sm text-white"&gt;&lt;p&gt;${message}&lt;/p&gt;&lt;button class="mt-4 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20"&gt;Close&lt;/button&gt;&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>container.appendChild(box);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; box.classList.add('active'), 10);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>box.querySelector('button').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>box.classList.remove('active');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; container.innerHTML = '', 300);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function openStoryModal(ex) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>modalContainer.innerHTML = `&lt;div id="story-modal" class="story-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"&gt;&lt;div id="story-background" class="story-background"&gt;&lt;/div&gt;&lt;div class="grid-lines"&gt;&lt;/div&gt;&lt;div id="ai-orb" class="ai-orb" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);"&gt;&lt;/div&gt;&lt;button id="modal-close-btn" class="absolute top-6 right-6 text-white/70 hover:text-white z-20 focus-ring rounded-full p-1"&gt;${XIcon}&lt;/button&gt;&lt;div class="story-step" data-step="1"&gt;&lt;h2 id="modal-title" class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 1s;"&gt;${ex.details.principle}&lt;/h2&gt;&lt;/div&gt;&lt;div class="story-step" data-step="2"&gt;&lt;div class="story-element glowing-card p-8 text-center max-w-md"&gt;&lt;p class="text-sm uppercase tracking-widest text-teal-300"&gt;Problem&lt;/p&gt;&lt;p class="text-xl md:text-2xl mt-2"&gt;${ex.details.problem}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="story-step" data-step="3"&gt;&lt;div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl items-center justify-center"&gt;&lt;div class="flip-card-container story-element w-full md:w-1/2 h-64" style="transition-delay: 0.2s;"&gt;&lt;div class="flip-card w-full h-full"&gt;&lt;div class="flip-card-front glowing-card p-6 flex flex-col justify-center items-center text-center"&gt;&lt;p class="text-sm uppercase tracking-widest text-teal-300"&gt;Product&lt;/p&gt;&lt;p class="text-lg mt-2"&gt;${ex.details.execution.product}&lt;/p&gt;&lt;/div&gt;&lt;div class="flip-card-back glowing-card p-6 flex flex-col justify-center items-center text-center"&gt;&lt;p class="text-sm uppercase tracking-widest text-violet-300"&gt;Services&lt;/p&gt;&lt;p class="text-lg mt-2"&gt;${ex.details.execution.services}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;button id="view-prototype-btn" class="story-element absolute bottom-12 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm focus-ring" style="transition-delay: 0.5s;"&gt;View Prototype&lt;/button&gt;&lt;/div&gt;&lt;div class="story-step" data-step="4"&gt;&lt;div class="story-element glowing-card p-8 text-center max-w-md"&gt;&lt;p class="text-sm uppercase tracking-widest text-teal-300"&gt;Outcomes / ROI&lt;/p&gt;&lt;p class="text-xl md:text-2xl mt-2"&gt;${ex.details.roi}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="story-step" data-step="5"&gt;&lt;div class="story-element glowing-card p-8 text-center max-w-md"&gt;&lt;p class="text-sm uppercase tracking-widest text-teal-300"&gt;AI Edge&lt;/p&gt;&lt;p class="text-xl md:text-2xl mt-2"&gt;${ex.details.ai}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="story-step" data-step="6"&gt;&lt;p class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 0.2s;"&gt;This concept shows how I design and deploy products + services for measurable business outcomes.&lt;/p&gt;&lt;div class="story-element mt-8 flex gap-4" style="transition-delay: 0.5s;"&gt;&lt;button id="see-another-btn" class="px-5 py-3 rounded-full border border-violet-500/30 text-indigo-100 hover:bg-violet-500/10 focus-ring"&gt;See Another Experiment&lt;/button&gt;&lt;a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring"&gt;Book a 20-min intro&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;button id="story-next-btn" class="absolute bottom-6 left-6 px-4 py-2 rounded-full bg-white/10 text-white/80 hover:bg-white/20 z-20 backdrop-blur-sm focus-ring"&gt;Next&lt;/button&gt;&lt;/div&gt;`;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const modal = document.getElementById('story-modal');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const closeModal = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>modal.classList.remove('active');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; modalContainer.innerHTML = '', 500);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const background = document.getElementById('story-background');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>background.className = 'story-background'; // Reset classes</p>
-<p class="p1"><span class="Apple-converted-space">                </span>background.classList.add(`bg-${ex.id}`);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const orb = document.getElementById('ai-orb'); const steps = modal.querySelectorAll('.story-step'); const nextBtn = document.getElementById('story-next-btn'); let currentStep = 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const goToStep = (stepIndex) =&gt; { currentStep = stepIndex; modal.className = 'story-modal active'; modal.classList.add(`step-${stepIndex}-active`); steps.forEach((step, i) =&gt; { step.classList.toggle('active', i + 1 === stepIndex); }); if (stepIndex === 1) { orb.style.transform = 'translate(-50%, -50%) scale(1)'; orb.style.top = '15%'; orb.style.left = '50%'; } if (stepIndex === 3) { const flipCard = modal.querySelector('.flip-card-container'); setTimeout(() =&gt; flipCard.classList.add('flipped'), 2000); setTimeout(() =&gt; flipCard.classList.remove('flipped'), 4000); } nextBtn.style.display = stepIndex === steps.length ? 'none' : 'block'; };</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { modal.classList.add('active'); setTimeout(() =&gt; goToStep(1), 500); }, 100);</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>nextBtn.addEventListener('click', () =&gt; { if (currentStep &lt; steps.length) { goToStep(currentStep + 1); } });</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('modal-close-btn').addEventListener('click', closeModal);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('see-another-btn').addEventListener('click', closeModal);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('view-prototype-btn').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showMessageBox("Work in Progress: Connect with me on Linkedin to see more");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderGrid();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- AI Chatbot Logic ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotWindow = document.getElementById('chatbot-window');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotToggle = document.getElementById('chatbot-toggle');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotCloseBtn = document.getElementById('chatbot-close-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotMessages = document.getElementById('chatbot-messages');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotInput = document.getElementById('chatbot-input');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let chatbotMounted = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mountChatbot = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (chatbotMounted) return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbotQuickReplies.innerHTML = ['Recruiter', 'Investor', 'Collaborator', 'Okta + AI'].map(reply =&gt;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>`&lt;button class="px-3 py-1 text-sm rounded-full border border-white/20 text-indigo-100 hover:bg-white/10 focus-ring"&gt;${reply}&lt;/button&gt;`</p>
-<p class="p1"><span class="Apple-converted-space">                </span>).join('');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbotMounted = true;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (siteContent.chatbot &amp;&amp; siteContent.chatbot.greeting) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>addMessage('ai', siteContent.chatbot.greeting);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, 500);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const toggleChatbot = (isOpen) =&gt; {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (isOpen) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>mountChatbot();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>chatbotWindow.classList.remove('hidden');<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; { chatbotWindow.classList.remove('opacity-0', 'scale-95'); }, 10);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>chatbotWindow.classList.add('opacity-0', 'scale-95');<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; { chatbotWindow.classList.add('hidden'); }, 300);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>}<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatbotToggle.addEventListener('click', () =&gt; toggleChatbot(true));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatbotCloseBtn.addEventListener('click', () =&gt; toggleChatbot(false));</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const addMessage = (sender, text, isThinking = false) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const messageEl = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (sender === 'user') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.className = 'ml-auto max-w-[80%] bg-gradient-to-br from-teal-500 to-violet-600 text-white rounded-xl rounded-br-lg p-3 text-sm';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else if (isThinking) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.id = 'thinking-bubble';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.innerHTML = `&lt;div class="thinking-bubble"&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageEl.innerHTML = text.replace(/\n/g, '&lt;br&gt;'); // Support newlines</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbotMessages.appendChild(messageEl);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbotMessages.scrollTop = chatbotMessages.scrollHeight;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const intents = [</p>
-<p class="p1"><span class="Apple-converted-space">              </span>{key:'recruiter', test:/recruit|cv|resume|résumé|hire/i, reply:'Here’s the fast lane for recruiters: background → highlights → CV download.', actions:['#about','/Bradley_Fernandes_CV.pdf']},</p>
-<p class="p1"><span class="Apple-converted-space">              </span>{key:'investor', test:/invest|roi|traction|market/i, reply:'ROI snapshots and experiments most relevant to investors.', actions:['#stage-3','#stage-4']},</p>
-<p class="p1"><span class="Apple-converted-space">              </span>{key:'collab', test:/partner|collab|together|freelance|contract/i, reply:'Let’s scope a small win: pick an experiment and we’ll tailor it.', actions:['#stage-3','#contact']},</p>
-<p class="p1"><span class="Apple-converted-space">              </span>{key:'okta', test:/okta|iam|identity/i, reply:'Identity + AI overview and outcomes.', actions:['#stage-3','#stage-4']},</p>
-<p class="p1"><span class="Apple-converted-space">            </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function getAiResponse(q){</p>
-<p class="p1"><span class="Apple-converted-space">              </span>for (const i of intents) if (i.test.test(q)) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return `${i.reply}\n\n• Open: ${i.actions.join('<span class="Apple-converted-space">  </span>→<span class="Apple-converted-space">  </span>')}`;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>}</p>
-<p class="p1"><span class="Apple-converted-space">              </span>if (/framework|method|how/i.test(q)) return "Method in one line: Principle → Problem → Execution (Product + Services) → Outcomes, with AI as a multiplier.";</p>
-<p class="p1"><span class="Apple-converted-space">              </span>return "Tell me if you’re a recruiter, investor, or collaborator — I’ll guide you to the right section in one click.";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const processUserMessage = (userMessage) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>addMessage('user', userMessage);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>chatbotInput.value = '';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>addMessage('ai', '', true);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const thinkingBubble = document.getElementById('thinking-bubble');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (thinkingBubble) thinkingBubble.remove();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const aiResponse = getAiResponse(userMessage);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>addMessage('ai', aiResponse);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, 1200);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatbotInput.addEventListener('keypress', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (e.key === 'Enter' &amp;&amp; chatbotInput.value.trim() !== '') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>processUserMessage(chatbotInput.value.trim());</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatbotQuickReplies.addEventListener('click', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (e.target.tagName === 'BUTTON') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>processUserMessage(e.target.textContent);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between p-4 text-indigo-100">
+      <a href="#" class="font-bold text-white focus-ring rounded">Bradley Fernandes</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#stage-3" class="nav-link hover:text-white focus-ring rounded">Case Studies</a>
+        <a href="#stage-4" class="nav-link hover:text-white focus-ring rounded">Framework</a>
+        <a href="#about" class="nav-link hover:text-white focus-ring rounded">About</a>
+        <a href="/Bradley_Fernandes_CV.pdf" target="_blank" class="nav-link hover:text-white focus-ring rounded">Download CV</a>
+      </div>
+      <a href="#contact" class="cta-primary px-4 py-2 text-sm rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Work with me</a>
+    </nav>
+  </header>
+
+  <main id="homepage-story">
+    <div id="story-canvas-container"><canvas id="story-canvas"></canvas></div>
+
+    <section id="stage-1" class="story-stage">
+      <div class="story-content text-center px-4">
+        <h1 id="main-headline" class="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-violet-400"></h1>
+        <p id="hero-subheadline" class="mt-4 max-w-2xl mx-auto text-lg text-indigo-100"></p>
+        <div id="hero-quick-actions" class="mt-6 flex flex-wrap items-center justify-center gap-3"></div>
+        <div id="hero-outcomes-strip" class="mt-8 flex flex-wrap justify-center gap-2 text-xs text-indigo-200/90"></div>
+      </div>
+    </section>
+
+    <section id="stage-2" class="story-stage">
+      <div class="story-content w-full h-full relative">
+        <div id="node-1" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">Principle-Driven Strategy</h3></div>
+        <div id="node-2" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">End-to-End Execution</h3></div>
+        <div id="node-3" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">AI as an Accelerator</h3></div>
+      </div>
+    </section>
+
+    <section id="stage-3" class="story-stage bg-[#0a0d16]">
+      <div class="story-content w-full max-w-6xl mx-auto px-6">
+        <h2 id="experiments-title" class="text-3xl font-bold text-center mb-4"></h2>
+        <div id="social-proof-bar" class="mx-auto max-w-6xl px-6 mb-6"></div>
+        <p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto"></p>
+        <div id="experiment-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      </div>
+    </section>
+
+    <section id="stage-4" class="story-stage bg-[#0a0d16]">
+      <div class="story-content w-full max-w-5xl mx-auto px-6 text-center">
+        <h2 id="framework-title" class="text-3xl font-bold text-white mb-4"></h2>
+        <p id="framework-subtitle" class="text-lg text-indigo-100 mb-8"></p>
+        <div class="relative">
+          <div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-teal-400/20 via-violet-500/20 to-pink-500/20 blur-2xl"></div>
+
+          <svg viewBox="0 0 800 400" class="framework-svg w-full">
+            <defs>
+              <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#14c6a6" />
+                <stop offset="100%" style="stop-color:#7a5af8" />
+              </linearGradient>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <path d="M 100 200 C 150 100, 250 100, 300 200 S 450 300, 500 200 S 650 100, 700 200" stroke="url(#flowGradient)" stroke-width="2" fill="none" class="flow-path" />
+            <path d="M 400 50 V 160" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay:.5s;" />
+            <path d="M 400 350 V 240" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay:.7s;" />
+
+            <g class="node-circle" style="animation-delay:1s;" data-tooltip="The core belief that guides the work.">
+              <circle cx="100" cy="200" r="10" fill="#14c6a6" filter="url(#glow)"/>
+            </g>
+            <text x="100" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay:1.2s;">Principle</text>
+
+            <g class="node-circle" style="animation-delay:1.5s;" data-tooltip="The specific business pain point being addressed.">
+              <circle cx="300" cy="200" r="10" fill="#3b82f6" filter="url(#glow)"/>
+            </g>
+            <text x="300" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay:1.7s;">Problem</text>
+
+            <g class="node-circle" style="animation-delay:2s;" data-tooltip="The product and the services that ensure its adoption.">
+              <circle cx="500" cy="200" r="10" fill="#8b5cf6" filter="url(#glow)"/>
+            </g>
+            <text x="500" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay:2.2s;">Execution</text>
+            <text x="500" y="255" fill="#a5b4fc" font-size="12" text-anchor="middle" class="node-text" style="animation-delay:2.2s;">(Product + Services)</text>
+
+            <g class="node-circle" style="animation-delay:2.5s;" data-tooltip="The measurable business effect: revenue, savings, or risk reduction.">
+              <circle cx="700" cy="200" r="10" fill="#ec4899" filter="url(#glow)"/>
+            </g>
+            <text x="700" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay:2.7s;">Outcomes</text>
+
+            <g class="ai-pulse" data-tooltip="AI applied to amplify speed, quality, or value.">
+              <circle cx="400" cy="200" r="25" fill="#0a0d16" stroke="#0d9488" stroke-width="2"/>
+              <text x="400" y="205" fill="#14c6a6" font-size="18" text-anchor="middle" font-weight="bold" class="node-text" style="animation-delay:.8s;">AI</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-24 bg-[#0a0d16] relative z-10">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 id="about-headline" class="text-3xl font-bold text-white mb-4"></h2>
+        <p id="about-narrative" class="text-lg text-indigo-100"></p>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-gradient-to-t from-[#0a0d16] to-[#0c0d1e] relative z-10">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 id="contact-headline" class="text-3xl font-bold text-white mb-4"></h2>
+        <p id="contact-copy" class="text-lg text-indigo-100 mb-8"></p>
+        <div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3"></div>
+      </div>
+    </section>
+
+    <footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]">
+      <p id="footer-line"></p>
+    </footer>
+  </main>
+
+  <div id="modal-container"></div>
+  <div id="message-box-container"></div>
+  <div id="framework-tooltip"></div>
+
+  <div id="chatbot-container">
+    <div id="chatbot-window" class="hidden opacity-0 scale-95">
+      <div class="flex items-center justify-between p-4 border-b border-white/10 bg-white/5">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-gradient-to-tr from-teal-400 to-pink-500"></div>
+          <span class="font-semibold text-white">AI Guide</span>
+        </div>
+        <button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1" aria-label="Close chatbot">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div id="chatbot-messages" class="flex-1 p-4 space-y-4 overflow-y-auto"></div>
+      <div class="p-4 border-t border-white/10">
+        <div id="chatbot-quick-replies" class="flex flex-wrap gap-2 mb-3"></div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..." class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring" />
+      </div>
+    </div>
+    <button id="chatbot-toggle" class="focus-ring" aria-haspopup="dialog" aria-controls="chatbot-window" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg>
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const siteContent = {
+        global: {
+          brandLine: "Deploying products + services for business outcomes.",
+          footerLine: "© Bradley Fernandes — Applied AI &amp; Product Execution",
+          cvPath: "/Bradley_Fernandes_CV.pdf",
+          email: "bradley@example.com",
+          calendarLink: "https://cal.com/yourhandle/intro"
+        },
+        home: {
+          headline: "Great concepts are easy. Measurable outcomes are hard.",
+          subheadline: "I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster. See proof below or grab a quick intro."
+        },
+        framework: {
+          title: "Execution that guarantees ROI",
+          subtitle: "Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality."
+        },
+        experiments: {
+          title: "Applied Experiments (Not Startups)",
+          intro: "Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution."
+        },
+        about: {
+          headline: "What you get when we work together",
+          narrative: "I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value."
+        },
+        contact: {
+          headline: "Start with a small win",
+          copy: "Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value."
+        },
+        chatbot: {
+          greeting: "Welcome! I'm the AI guide for this portfolio. Think of me as your co-pilot. What are you curious about?",
+        },
+        experimentsData: [
+          { id: "clubos", title: "ClubOS", tagline: "Operating system for sports clubs", description: "Streamline scheduling and communication while unlocking sponsor revenue.", details: { for: "Sports club organizers", problemShort: "Wasted hours on admin &amp; missed revenue", principle: "Vertical SaaS succeeds when it matches real workflows and embeds adoption into the product.", problem: "Clubs waste hours juggling schedules and messages across apps, and they miss sponsor revenue because visibility is fragmented.", execution: { product: "Integrated scheduling, team comms, and sponsor placement tools.", services: "Onboarding playbooks for club admins, sponsor activation templates, and season-start setup support." }, roi: "10+ admin hours saved per week", ai: "Automated schedule suggestions, conflict detection, and drafted announcements tailored to age group, team, and tone." } },
+          { id: "spendsensei", title: "Spend Sensei", tagline: "AI-powered spend intelligence", description: "Catch leakage and anomalies early—make finance proactive.", details: { for: "Finance &amp; Ops leaders", problemShort: "Leakage and anomalies spotted too late", principle: "Finance should be transparent, predictive, and actionable—built on continuous signal, not month-end surprises.", problem: "Leakage and anomalies go unnoticed until close; investigations are manual, slow, and expensive.", execution: { product: "Real-time anomaly detection, variance analysis, and drill-downs by vendor, GL, and cost center.", services: "FinOps advisory to embed alerts in rituals, training for anomaly triage, and governance templates." }, roi: "1–3% controllable spend reduction", ai: "Predictive detection on top of time series and seasonality, natural-language queries (“Why did SaaS spend spike in Q2?”), and autogenerated variance explanations." } },
+          { id: "coffee", title: "Coffee Trading Dashboard", tagline: "Fair, transparent agri-trade", description: "Give estate owners visibility and pricing power in fragmented markets.", details: { for: "Supply chain managers", problemShort: "Lack of market visibility &amp; buyer access", principle: "Transparency unlocks fairer value distribution in fragmented markets.", problem: "Estate owners lack live price clarity and buyer access, leading to weaker negotiations and reliance on intermediaries.", execution: { product: "Live price dashboard, buyer directory, quality/lot tracking, and deal room.", services: "Training for data capture and quality metrics, buyer matchmaking workflows, and export documentation support." }, roi: "Higher farm-gate prices", ai: "Market trend prediction by grade and region, fair-price recommendations, buyer/lot matching based on quality and history." } },
+          { id: "learnai", title: "Learn with AI", tagline: "A new way to master anything", description: "Replace passive courses with adaptive, applied coaching.", details: { for: "HR &amp; Enablement teams", problemShort: "Static courses don't build capability", principle: "Learning sticks when it’s active, adaptive, and immediately applied.", problem: "Static courses don’t adapt to learner context; completion doesn’t equal capability.", execution: { product: "Study mode with targeted micro-challenges and prompts, progress dashboards, and reflections.", services: "Workshops, team playbooks, and enablement sprints tied to real work." }, roi: "Faster skill acquisition", ai: "Personalized coaching, adaptive paths based on performance, instant feedback on real artifacts (docs, code, decks)." } },
+          { id: "mentalhealth", title: "Mental Health Tech", tagline: "Journaling Meets Wearables", description: "A wellbeing companion that connects mood journaling with wearable data, giving a complete view of mental health.", details: { for: "Individuals, Employers, Providers", problemShort: "Siloed mental &amp; physical health data", principle: "Mental health isn’t just in the mind or the body — it’s in the connection between the two.", problem: "Journaling apps capture feelings. Wearables capture stress, sleep, and movement. But they live in silos — missing the complete picture of wellbeing.", execution: { product: "Daily micro-journaling prompts, wearable sync with mood overlays, and smart insights.", services: "Optional therapist dashboard for richer, precision care." }, roi: "Self-awareness &amp; early burnout detection", ai: "NLP interprets journal tone, pattern detection links mood with biometrics, and predictive nudges." } },
+        ]
+      };
+
+      const ChevronRightIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-5 w-5 text-indigo-400"><path d="m9 18 6-6-6-6"/></svg>`;
+      /* FIXED: removed stray `24"` and malformed attribute */
+      const XIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+
+      // Populate content
+      document.querySelector('nav > a.font-bold').textContent = "Bradley Fernandes";
+      document.getElementById('main-headline').textContent = siteContent.home.headline;
+      document.getElementById('hero-subheadline').textContent = siteContent.home.subheadline;
+      document.getElementById('experiments-title').textContent = siteContent.experiments.title;
+      document.getElementById('experiments-intro').textContent = siteContent.experiments.intro;
+      document.getElementById('framework-title').textContent = siteContent.framework.title;
+      document.getElementById('framework-subtitle').textContent = siteContent.framework.subtitle;
+      document.getElementById('about-headline').textContent = siteContent.about.headline;
+      document.getElementById('about-narrative').textContent = siteContent.about.narrative;
+      document.getElementById('contact-headline').textContent = siteContent.contact.headline;
+      document.getElementById('contact-copy').textContent = siteContent.contact.copy;
+      document.getElementById('footer-line').textContent = siteContent.global.footerLine;
+      document.title = "Bradley Fernandes — Digital Product Execution";
+
+      // Dynamic elements
+      document.getElementById('hero-quick-actions').innerHTML = `
+        <a href="#stage-3" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">See Case Studies</a>
+        <a href="#stage-4" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">View framework</a>
+        <a href="${siteContent.global.cvPath}" target="_blank" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring">Download CV</a>
+        <a href="#contact" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 focus-ring">Book intro</a>
+      `;
+      document.getElementById('hero-outcomes-strip').innerHTML = `
+        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Time‑to‑value ↓</span>
+        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Adoption ↑</span>
+        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Opex ↓</span>
+        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Audit readiness ↑</span>
+      `;
+      document.getElementById('social-proof-bar').innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">10–15 hrs</div><div class="text-sm text-indigo-300">Admin time saved / club / week*</div></div>
+          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">1–3%</div><div class="text-sm text-indigo-300">Controllable spend reduction</div></div>
+          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">Early Detection</div><div class="text-sm text-indigo-300">Proactive wellbeing insights</div></div>
+        </div>
+        <p class="mt-2 text-[11px] text-indigo-400/80 text-center">*Modeled results; project-dependent.</p>
+      `;
+      document.getElementById('contact-ctas').innerHTML = `
+        <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring">Book intro on LinkedIn</a>
+      `;
+
+      // Canvas animation
+      const canvas = document.getElementById('story-canvas');
+      const ctx = canvas.getContext('2d');
+      const stages = document.querySelectorAll('.story-stage');
+      let width, height;
+      let orb = { x:0, y:0, radius:0, targetRadius:5 };
+      let particles = [];
+      let lines = [];
+
+      function resize(){ width = canvas.width = innerWidth; height = canvas.height = innerHeight; orb.x = width/2; orb.y = height/2; }
+      function createParticles(){ particles = []; const density = innerWidth < 768 ? 25 : 50; for(let i=0;i<density;i++){ particles.push({ x:Math.random()*width, y:Math.random()*height, radius:Math.random()*1.5, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3 }); } }
+      function animate(){
+        if (document.documentElement.dataset.motion === 'reduce') return;
+        ctx.clearRect(0,0,width,height);
+        particles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>width) p.vx*=-1; if(p.y<0||p.y>height) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fillStyle='rgba(20,198,166,.3)'; ctx.fill(); });
+        orb.radius += (orb.targetRadius - orb.radius) * 0.08;
+        ctx.beginPath(); ctx.arc(orb.x,orb.y,orb.radius,0,Math.PI*2);
+        const g = ctx.createRadialGradient(orb.x,orb.y,0,orb.x,orb.y,orb.radius);
+        g.addColorStop(0,'rgba(20,198,166,.8)'); g.addColorStop(1,'rgba(122,90,248,0)'); ctx.fillStyle=g; ctx.fill();
+        lines.forEach(l=>{ ctx.beginPath(); ctx.moveTo(l.x1,l.y1); ctx.lineTo(l.x2,l.y2); ctx.strokeStyle=`rgba(20,198,166,${l.opacity})`; ctx.lineWidth=1; ctx.stroke(); });
+        requestAnimationFrame(animate);
+      }
+
+      const stageObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if (!entry.isIntersecting) return;
+          const stageId = entry.target.id;
+          document.querySelectorAll('.nav-link').forEach(link=>{
+            link.classList.toggle('active', link.getAttribute('href') === `#${stageId}`);
+          });
+          const stageIndex = Array.from(stages).indexOf(entry.target);
+          stages.forEach((s,i)=>s.classList.toggle('active', i===stageIndex));
+
+          const scrollY = window.scrollY;
+          const stageHeight = window.innerHeight;
+
+          const stage1Progress = Math.min(1, scrollY / stageHeight);
+          orb.targetRadius = 5 + stage1Progress * 150;
+
+          const stage2Start = stageHeight;
+          const stage2Progress = Math.max(0, Math.min(1, (scrollY - stage2Start) / stageHeight));
+          lines = [];
+          if (stage2Progress > 0.1) {
+            const n1 = document.getElementById('node-1').getBoundingClientRect();
+            const n2 = document.getElementById('node-2').getBoundingClientRect();
+            const n3 = document.getElementById('node-3').getBoundingClientRect();
+            lines.push({ x1:width/2, y1:height/2, x2:n1.left+n1.width/2, y2:n1.top+n1.height/2, opacity:Math.min(0.5, stage2Progress) });
+            lines.push({ x1:width/2, y1:height/2, x2:n2.left+n2.width/2, y2:n2.top+n2.height/2, opacity:Math.min(0.5, stage2Progress) });
+            lines.push({ x1:width/2, y1:height/2, x2:n3.left+n3.width/2, y2:n3.top+n3.height/2, opacity:Math.min(0.5, stage2Progress) });
+          }
+
+          const stage3Start = stageHeight * 2;
+          const stage3Progress = Math.max(0, (scrollY - stage3Start) / (stageHeight / 2));
+          canvas.style.opacity = Math.max(0, 1 - stage3Progress);
+        });
+      }, {threshold:0.5});
+
+      stages.forEach(s=>stageObserver.observe(s));
+      addEventListener('resize', ()=>{ resize(); createParticles(); });
+      resize(); createParticles(); animate();
+
+      // Framework tooltip (fixed listener placement)
+      const tooltip = document.getElementById('framework-tooltip');
+      document.querySelectorAll('.framework-svg g').forEach((el)=>{
+        el.addEventListener('mouseenter',(e)=>{
+          const text = e.currentTarget.dataset.tooltip;
+          if (!text) return;
+          tooltip.textContent = text;
+          tooltip.style.opacity = '1';
+        });
+        el.addEventListener('mouseleave', ()=> { tooltip.style.opacity = '0'; });
+        el.addEventListener('mousemove', (e)=> {
+          tooltip.style.left = `${e.clientX + 15}px`;
+          tooltip.style.top = `${e.clientY}px`;
+        });
+      });
+
+      // Staggered card reveal
+      const cardObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if (!entry.isIntersecting) return;
+          const cards = entry.target.querySelectorAll('.experiment-card');
+          cards.forEach((card, idx)=> setTimeout(()=> card.classList.add('visible'), idx*150));
+          cardObserver.unobserve(entry.target);
+        });
+      }, {threshold:0.1});
+
+      // Grid & modal
+      const gridContainer = document.getElementById('experiment-grid-container');
+      const modalContainer = document.getElementById('modal-container');
+
+      function renderGrid(){
+        gridContainer.innerHTML = siteContent.experimentsData.map(ex => `
+          <button data-id="${ex.id}" class="experiment-card card text-left p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h4 class="text-lg font-semibold">${ex.title}</h4>
+                <p class="mt-1 text-xs uppercase tracking-wide text-indigo-300/90">${ex.tagline}</p>
+              </div>${ChevronRightIcon}
+            </div>
+            <ul class="mt-3 space-y-1 text-[13px] text-indigo-100/90">
+              <li>• For: ${ex.details?.for ?? "Ops/Finance/IT leaders"}</li>
+              <li>• Fixes: ${ex.details?.problemShort ?? ex.details.problem}</li>
+              <li>• Outcome: ${ex.details?.roi}</li>
+            </ul>
+          </button>`).join('');
+        cardObserver.observe(gridContainer);
+      }
+
+      function showMessageBox(message){
+        const container = document.getElementById('message-box-container');
+        const box = document.createElement('div');
+        box.className = 'message-box';
+        box.innerHTML = `
+          <div class="glowing-card p-8 text-center max-w-sm text-white">
+            <p>${message}</p>
+            <button class="mt-4 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20">Close</button>
+          </div>`;
+        container.appendChild(box);
+        setTimeout(()=> box.classList.add('active'), 10);
+        box.querySelector('button').addEventListener('click', ()=>{
+          box.classList.remove('active');
+          setTimeout(()=> container.innerHTML = '', 300);
+        });
+      }
+
+      function openStoryModal(ex){
+        modalContainer.innerHTML = `
+          <div id="story-modal" class="story-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div id="story-background" class="story-background"></div>
+            <div class="grid-lines"></div>
+            <div id="ai-orb" class="ai-orb" style="top:50%;left:50%;transform:translate(-50%,-50%) scale(0);"></div>
+            <button id="modal-close-btn" class="absolute top-6 right-6 text-white/70 hover:text-white z-20 focus-ring rounded-full p-1" aria-label="Close modal">${XIcon}</button>
+
+            <div class="story-step" data-step="1">
+              <h2 id="modal-title" class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay:1s;">${ex.details.principle}</h2>
+            </div>
+
+            <div class="story-step" data-step="2">
+              <div class="story-element glowing-card p-8 text-center max-w-md">
+                <p class="text-sm uppercase tracking-widest text-teal-300">Problem</p>
+                <p class="text-xl md:text-2xl mt-2">${ex.details.problem}</p>
+              </div>
+            </div>
+
+            <div class="story-step" data-step="3">
+              <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl items-center justify-center">
+                <div class="flip-card-container story-element w-full md:w-1/2 h-64" style="transition-delay:.2s;">
+                  <div class="flip-card w-full h-full">
+                    <div class="flip-card-front glowing-card p-6 flex flex-col justify-center items-center text-center">
+                      <p class="text-sm uppercase tracking-widest text-teal-300">Product</p>
+                      <p class="text-lg mt-2">${ex.details.execution.product}</p>
+                    </div>
+                    <div class="flip-card-back glowing-card p-6 flex flex-col justify-center items-center text-center">
+                      <p class="text-sm uppercase tracking-widest text-violet-300">Services</p>
+                      <p class="text-lg mt-2">${ex.details.execution.services}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button id="view-prototype-btn" class="story-element absolute bottom-12 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm focus-ring" style="transition-delay:.5s;">View Prototype</button>
+            </div>
+
+            <div class="story-step" data-step="4">
+              <div class="story-element glowing-card p-8 text-center max-w-md">
+                <p class="text-sm uppercase tracking-widest text-teal-300">Outcomes / ROI</p>
+                <p class="text-xl md:text-2xl mt-2">${ex.details.roi}</p>
+              </div>
+            </div>
+
+            <div class="story-step" data-step="5">
+              <div class="story-element glowing-card p-8 text-center max-w-md">
+                <p class="text-sm uppercase tracking-widest text-teal-300">AI Edge</p>
+                <p class="text-xl md:text-2xl mt-2">${ex.details.ai}</p>
+              </div>
+            </div>
+
+            <div class="story-step" data-step="6">
+              <p class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay:.2s;">This concept shows how I design and deploy products + services for measurable business outcomes.</p>
+              <div class="story-element mt-8 flex gap-4" style="transition-delay:.5s;">
+                <button id="see-another-btn" class="px-5 py-3 rounded-full border border-violet-500/30 text-indigo-100 hover:bg-violet-500/10 focus-ring">See Another Experiment</button>
+                <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a 20-min intro</a>
+              </div>
+            </div>
+
+            <button id="story-next-btn" class="absolute bottom-6 left-6 px-4 py-2 rounded-full bg-white/10 text-white/80 hover:bg-white/20 z-20 backdrop-blur-sm focus-ring">Next</button>
+          </div>
+        `;
+
+        const modal = document.getElementById('story-modal');
+        const closeModal = ()=>{ modal.classList.remove('active'); setTimeout(()=> modalContainer.innerHTML='', 500); };
+
+        const background = document.getElementById('story-background');
+        background.className = 'story-background';
+        background.classList.add(`bg-${ex.id}`);
+
+        const orbEl = document.getElementById('ai-orb');
+        const steps = modal.querySelectorAll('.story-step');
+        const nextBtn = document.getElementById('story-next-btn');
+        let currentStep = 0;
+
+        const goToStep = (idx)=>{
+          currentStep = idx;
+          modal.className = 'story-modal active';
+          modal.classList.add(`step-${idx}-active`);
+          steps.forEach((s,i)=> s.classList.toggle('active', i+1===idx));
+          if (idx === 1){ orbEl.style.transform='translate(-50%,-50%) scale(1)'; orbEl.style.top='15%'; orbEl.style.left='50%'; }
+          if (idx === 3){
+            const flipCard = modal.querySelector('.flip-card-container');
+            setTimeout(()=> flipCard.classList.add('flipped'), 2000);
+            setTimeout(()=> flipCard.classList.remove('flipped'), 4000);
+          }
+          nextBtn.style.display = idx === steps.length ? 'none' : 'block';
+        };
+
+        setTimeout(()=>{ modal.classList.add('active'); setTimeout(()=> goToStep(1), 500); }, 100);
+        nextBtn.addEventListener('click', ()=> { if (currentStep < steps.length) goToStep(currentStep+1); });
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('see-another-btn').addEventListener('click', closeModal);
+        document.getElementById('view-prototype-btn').addEventListener('click', ()=> showMessageBox("Work in Progress: Connect with me on Linkedin to see more"));
+      }
+
+      renderGrid();
+      // AI chatbot
+      const chatbotWindow = document.getElementById('chatbot-window');
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+      const chatbotMessages = document.getElementById('chatbot-messages');
+      const chatbotInput = document.getElementById('chatbot-input');
+      const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');
+      let chatbotMounted = false;
+
+      const mountChatbot = ()=>{
+        if (chatbotMounted) return;
+        chatbotQuickReplies.innerHTML = ['Recruiter','Investor','Collaborator','Okta + AI']
+          .map(r=>`<button class="px-3 py-1 text-sm rounded-full border border-white/20 text-indigo-100 hover:bg-white/10 focus-ring">${r}</button>`).join('');
+        chatbotMounted = true;
+        setTimeout(()=>{ if (siteContent.chatbot?.greeting) addMessage('ai', siteContent.chatbot.greeting); }, 500);
+      };
+
+      const toggleChatbot = (open)=>{
+        if (open){
+          mountChatbot();
+          chatbotWindow.classList.remove('hidden');
+          chatbotToggle.setAttribute('aria-expanded','true');
+          setTimeout(()=> chatbotWindow.classList.remove('opacity-0','scale-95'), 10);
+        } else {
+          chatbotWindow.classList.add('opacity-0','scale-95');
+          chatbotToggle.setAttribute('aria-expanded','false');
+          setTimeout(()=> chatbotWindow.classList.add('hidden'), 300);
+        }
+      };
+
+      chatbotToggle.addEventListener('click', ()=> toggleChatbot(true));
+      chatbotCloseBtn.addEventListener('click', ()=> toggleChatbot(false));
+
+      const addMessage = (sender, text, isThinking=false)=>{
+        const el = document.createElement('div');
+        if (sender==='user'){
+          el.className='ml-auto max-w-[80%] bg-gradient-to-br from-teal-500 to-violet-600 text-white rounded-xl rounded-br-lg p-3 text-sm';
+          el.textContent=text;
+        } else if (isThinking){
+          el.className='max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
+          el.id='thinking-bubble';
+          el.innerHTML=`<div class="thinking-bubble"><span></span><span></span><span></span></div>`;
+        } else {
+          el.className='max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
+          el.innerHTML=text.replace(/\n/g,'<br>');
+        }
+        chatbotMessages.appendChild(el);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      };
+
+      const intents = [
+        {key:'recruiter', test:/recruit|cv|resume|résumé|hire/i, reply:'Here’s the fast lane for recruiters: background → highlights → CV download.', actions:['#about','/Bradley_Fernandes_CV.pdf']},
+        {key:'investor', test:/invest|roi|traction|market/i, reply:'ROI snapshots and experiments most relevant to investors.', actions:['#stage-3','#stage-4']},
+        {key:'collab', test:/partner|collab|together|freelance|contract/i, reply:'Let’s scope a small win: pick an experiment and we’ll tailor it.', actions:['#stage-3','#contact']},
+        {key:'okta', test:/okta|iam|identity/i, reply:'Identity + AI overview and outcomes.', actions:['#stage-3','#stage-4']},
+      ];
+
+      function getAiResponse(q){
+        for (const i of intents) if (i.test.test(q)){
+          return `${i.reply}\n\n• Open: ${i.actions.join(' → ')}`;
+        }
+        if (/framework|method|how/i.test(q))
+          return "Method in one line: Principle → Problem → Execution (Product + Services) → Outcomes, with AI as a multiplier.";
+        return "Tell me if you’re a recruiter, investor, or collaborator — I’ll guide you to the right section in one click.";
+      }
+
+      const processUserMessage = (msg)=>{
+        addMessage('user', msg);
+        chatbotInput.value='';
+        addMessage('ai','',true);
+        setTimeout(()=>{
+          const thinking = document.getElementById('thinking-bubble');
+          if (thinking) thinking.remove();
+          addMessage('ai', getAiResponse(msg));
+        }, 1200);
+      };
+
+      chatbotInput.addEventListener('keypress',(e)=>{
+        if (e.key==='Enter' && chatbotInput.value.trim()!==''){
+          processUserMessage(chatbotInput.value.trim());
+        }
+      });
+      chatbotQuickReplies.addEventListener('click',(e)=>{
+        if (e.target.tagName === 'BUTTON'){
+          processUserMessage(e.target.textContent);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
