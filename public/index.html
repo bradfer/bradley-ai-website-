@@ -6,40 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bradley Fernandes — Digital Product Execution</title>
     <meta name="description" content="I design, deploy, and service products so they get adopted and deliver measurable ROI. Explore applied experiments and an execution framework that ties products + services to outcomes.">
-
-    <!-- Social & SEO metadata -->
-    <meta property="og:title" content="Bradley Fernandes — Digital Product Execution">
-    <meta property="og:description" content="I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster.">
-    <!-- TODO: Replace with an actual image URL representing your portfolio -->
-    <meta property="og:image" content="/path/to/og-image.jpg">
-    <meta property="og:type" content="website">
-    <!-- TODO: Replace with your actual domain -->
-    <meta property="og:url" content="https://yourdomain.com/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bradley Fernandes — Product Execution">
-    <meta name="twitter:description" content="I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster.">
-    <!-- TODO: Replace with your actual image URL -->
-    <meta name="twitter:image" content="/path/to/og-image.jpg">
-    <!-- Canonical and theme color -->
-    <!-- TODO: Replace href with your canonical URL -->
-    <link rel="canonical" href="https://yourdomain.com/">
-    <meta name="theme-color" content="#0a0d16">
-
-    <!-- Structured data describing the author -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Bradley Fernandes",
-      "url": "https://yourdomain.com/",
-      "jobTitle": "Digital Product Execution Specialist",
-      "description": "Designing, deploying, and servicing products so they get adopted and deliver ROI.",
-      "image": "/path/to/profile.jpg",
-      "sameAs": [
-        "https://www.linkedin.com/in/bradley-fernandes/"
-      ]
-    }
-    </script>
     
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,8 +56,9 @@
             color: white;
         }
         #homepage-story { position: relative; }
-        .story-stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
-        #story-canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; pointer-events: none; }
+        /* Use small viewport units on mobile to avoid the browser chrome affecting vh values */
+        .story-stage { min-height: 100svh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+        #story-canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; z-index: 1; pointer-events: none; }
         .story-content { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .story-stage.active .story-content { opacity: 1; transform: translateY(0); }
         .node { position: absolute; opacity: 0; transition: opacity 0.8s ease 0.5s; }
@@ -134,7 +101,24 @@
         #chatbot-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 110; }
         #chatbot-toggle { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background-image: linear-gradient(to bottom right, #14c6a6, #7a5af8, #ec4899); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); display: grid; place-items: center; animation: pulse 2s infinite; transition: transform 0.3s ease; }
         #chatbot-toggle:hover { transform: scale(1.1); }
-        #chatbot-window { position: absolute; bottom: 0; right: 0; width: 22rem; height: 70vh; max-height: 500px; background-color: rgba(10, 13, 22, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); backdrop-filter: blur(12px); display: flex; flex-direction: column; transform-origin: bottom right; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #chatbot-window {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: min(92vw, 22rem);
+            /* Use dynamic viewport units for height and allow it to shrink on small screens */
+            max-height: 80svh;
+            background-color: rgba(10, 13, 22, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            backdrop-filter: blur(12px);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow: hidden;
+            transform-origin: bottom right;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
         .message-box { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
         .message-box.active { opacity: 1; pointer-events: auto; }
         .thinking-bubble { display: flex; gap: 0.25rem; align-items: center; padding: 0.75rem; }
@@ -156,8 +140,6 @@
         .skill-card:hover { background-color: rgba(255, 255, 255, 0.07); }
         .proof-card-inner { transform-style: preserve-3d; transition: transform 0.6s; }
         .proof-card:hover .proof-card-inner { transform: rotateY(180deg); }
-        /* allow keyboard users to flip proof cards on focus */
-        .proof-card:focus .proof-card-inner { transform: rotateY(180deg); }
         .proof-card-front, .proof-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
         .proof-card-back { transform: rotateY(180deg); }
         /* optional animated halo used in skills */
@@ -175,6 +157,37 @@
             0%,100% { opacity: .6; filter: blur(24px); }
             50%     { opacity: 1;  filter: blur(32px); }
         }
+
+        /* ------------------------------------------------------------ */
+        /* Mobile Enhancements & Accessibility */
+        /* Provide fallback for browsers that do not support svh units */
+        @supports not (height: 1svh) {
+          :root { --vh: 1vh; }
+          .story-stage { min-height: calc(var(--vh) * 100); }
+          #story-canvas-container { height: calc(var(--vh) * 100); }
+          #chatbot-window { max-height: calc(var(--vh) * 80); }
+        }
+
+        /* Ensure sticky headers don't overlap anchor targets */
+        [id] { scroll-margin-top: 72px; }
+
+        /* Increase touch target size for small icon buttons */
+        button.rounded-full.p-1 { padding: 0.5rem; }
+
+        /* Enable flip cards on keyboard focus and tap */
+        .proof-card:focus .proof-card-inner,
+        .proof-card.tapped .proof-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Respect safe-area insets for bottom-pinned elements */
+        footer, #chatbot-container {
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+        #chatbot-toggle {
+            bottom: max(1rem, env(safe-area-inset-bottom));
+            right: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -183,8 +196,8 @@
     <div id="app-container">
         <!-- Main Portfolio Page -->
         <div id="page-home">
-            <header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md" role="banner">
-                <nav role="navigation" aria-label="Main Navigation" class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100">
+            <header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md">
+                <nav role="navigation" class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100">
                     <a href="#" data-page="home" class="page-link font-bold text-white focus-ring rounded">Bradley Fernandes</a>
                     <div class="hidden md:flex items-center gap-6 text-sm">
                         <a href="#stage-3" class="nav-link hover:text-white focus-ring rounded">Case Studies</a>
@@ -230,16 +243,16 @@
                 </section>
                 <section id="stage-3" class="story-stage bg-[#0a0d16]">
                     <div class="story-content w-full max-w-6xl mx-auto px-6">
-                        <h2 id="experiments-title" class="text-3xl font-bold text-center mb-4">Applied Experiments (Not Startups)</h2>
+                        <h2 id="experiments-title" class="text-3xl font-bold text-center mb-4"></h2>
                         <div id="social-proof-bar" class="mx-auto max-w-6xl px-6 mb-6"></div>
-                        <p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto">Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution.</p>
+                        <p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto"></p>
                         <div id="experiment-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
                     </div>
                 </section>
                 <section id="stage-4" class="story-stage bg-[#0a0d16]">
                     <div class="story-content w-full max-w-5xl mx-auto px-6 text-center">
-                        <h2 id="framework-title" class="text-3xl font-bold text-white mb-4">Execution that guarantees ROI</h2>
-                        <p id="framework-subtitle" class="text-lg text-indigo-100 mb-8">Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality.</p>
+                        <h2 id="framework-title" class="text-3xl font-bold text-white mb-4"></h2>
+                        <p id="framework-subtitle" class="text-lg text-indigo-100 mb-8"></p>
                         <div class="relative">
                             <div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-teal-400/20 via-violet-500/20 to-pink-500/20 blur-2xl animate-glow"></div>
                             <svg viewBox="0 0 800 400" class="framework-svg w-full" role="img" aria-labelledby="framework-title">
@@ -258,30 +271,27 @@
                 </section>
                 <section id="about" class="py-24 bg-[#0a0d16] relative z-10">
                     <div class="max-w-4xl mx-auto px-6 text-center">
-                         <h2 id="about-headline" class="text-3xl font-bold text-white mb-4">What you get when we work together</h2>
-                         <p id="about-narrative" class="text-lg text-indigo-100">I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value.</p>
+                         <h2 id="about-headline" class="text-3xl font-bold text-white mb-4"></h2>
+                         <p id="about-narrative" class="text-lg text-indigo-100"></p>
                     </div>
                 </section>
                  <section id="contact" class="py-24 bg-gradient-to-t from-[#0a0d16] to-[#0c0d1e] relative z-10">
                     <div class="max-w-4xl mx-auto px-6 text-center">
-                         <h2 id="contact-headline" class="text-3xl font-bold text-white mb-4">Start with a small win</h2>
-                         <p id="contact-copy" class="text-lg text-indigo-100 mb-8">Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value.</p>
-                         <div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3">
-                            <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring">Book intro on LinkedIn</a>
-                            <a href="mailto:bradley@example.com" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring">Email me your idea</a>
-                         </div>
+                         <h2 id="contact-headline" class="text-3xl font-bold text-white mb-4"></h2>
+                         <p id="contact-copy" class="text-lg text-indigo-100 mb-8"></p>
+                         <div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3"></div>
                     </div>
                 </section>
-                <footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]" role="contentinfo">
-                    <p id="footer-line">© Bradley Fernandes — Applied AI & Product Execution</p>
+                <footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]">
+                    <p id="footer-line"></p>
                 </footer>
             </main>
         </div>
 
         <!-- Living CV Page -->
         <div id="page-cv" class="hidden">
-            <header class="sticky top-0 z-50 bg-[#0a0d16]/80 backdrop-blur-md" role="banner">
-                <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100" role="navigation" aria-label="CV Navigation">
+            <header class="sticky top-0 z-50 bg-[#0a0d16]/80 backdrop-blur-md">
+                <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100">
                     <a href="#" data-page="home" class="page-link font-bold text-white focus-ring rounded">Bradley Fernandes</a>
                     <div class="hidden md:flex items-center gap-6 text-sm">
                         <a href="#" data-page="home" class="page-link hover:text-white focus-ring rounded">Home</a>
@@ -296,10 +306,11 @@
                 <section class="relative text-center py-20 md:py-28 px-4 overflow-hidden">
                      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#0a0d16] via-[#0a0d16] to-[#0c0d1e]"></div>
                      <div class="absolute inset-0 -z-10 opacity-20" style="background-image: radial-gradient(circle, rgba(20, 198, 166, 0.3) 0%, transparent 40%);"></div>
-                    <h1 id="cv-headline" tabindex="-1" class="text-3xl md:text-5xl font-bold tracking-tight text-white max-w-4xl mx-auto">Enterprise Software Execution | Design → Delivery → Adoption → Value Realisation | AI to Business Outcomes</h1>
-                    <p id="cv-subheadline" class="mt-4 max-w-3xl mx-auto text-lg text-indigo-200">Over a decade turning complex SaaS into measurable ROI. From BI pipelines to global partner ecosystems, I’ve built a career around one idea: execution is where strategy meets reality.</p>
+                    <!-- tabindex added to allow programmatic focus when navigating -->
+                    <h1 id="cv-headline" tabindex="-1" class="text-3xl md:text-5xl font-bold tracking-tight text-white max-w-4xl mx-auto"></h1>
+                    <p id="cv-subheadline" class="mt-4 max-w-3xl mx-auto text-lg text-indigo-200"></p>
                     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-                        <a id="cv-download-cta" href="#" target="_blank" rel="noopener" class="px-5 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
+                        <a id="cv-download-cta" href="#" target="_blank" class="px-5 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
                         <a href="#timeline" class="relative cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">
                             <span class="absolute -inset-0.5 rounded-full bg-inherit opacity-0 group-hover:opacity-75 animate-pulse"></span>
                             Explore Interactive CV
@@ -308,7 +319,7 @@
                 </section>
                 <section id="key-achievements" class="py-16 bg-[#0c0d1e]">
                     <div class="max-w-4xl mx-auto px-4">
-                        <h2 class="text-center text-lg font-semibold text-indigo-300 mb-6">Key Achievements</h2>
+                        <h3 class="text-center text-lg font-semibold text-indigo-300 mb-6">Key Achievements</h3>
                         <div id="achievements-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center"></div>
                     </div>
                 </section>
@@ -354,11 +365,11 @@
                     </div>
                 </section>
             </main>
-            <footer class="py-16 bg-[#0a0d16] border-t border-white/10" role="contentinfo">
+            <footer class="py-16 bg-[#0a0d16] border-t border-white/10">
                 <div class="max-w-7xl mx-auto px-4 text-center">
                     <div class="flex items-center justify-center gap-6 mb-8">
-                         <a href="/Bradley_Fernandes_CV.pdf" target="_blank" rel="noopener" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
-                         <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a Conversation</a>
+                         <a href="/Bradley_Fernandes_CV.pdf" target="_blank" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
+                         <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a Conversation</a>
                     </div>
                     <p id="cv-footer-line" class="text-sm text-indigo-300"></p>
                 </div>
@@ -373,11 +384,11 @@
             <div id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-heading" class="hidden opacity-0 scale-95">
                 <div class="flex items-center justify-between p-4 border-b border-white/10 bg-white/5"><div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-gradient-to-tr from-teal-400 to-pink-500"></div>
                 <span id="chatbot-heading" class="font-semibold text-white">AI Guide</span>
-            </div><button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1" aria-label="Close chat"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
+            </div><button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
                 <div id="chatbot-messages" aria-live="polite" class="flex-1 p-4 space-y-4 overflow-y-auto"></div>
                 <div class="p-4 border-t border-white/10">
                     <div id="chatbot-quick-replies" class="flex flex-wrap gap-2 mb-3"></div>
-                    <input id="chatbot-input" type="text" placeholder="Ask me anything..." aria-label="Ask the portfolio assistant" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring">
+                    <input id="chatbot-input" type="text" placeholder="Ask me anything..." class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring">
                 </div>
             </div>
             <button id="chatbot-toggle" class="focus-ring" aria-label="Open AI assistant chat"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg></button>
@@ -385,7 +396,21 @@
     </div>
 
     <script>
+        // --- Dynamic viewport unit fallback ---
+        // On some mobile browsers, 100vh includes the URL bar which causes sections
+        // to jump when the bar hides/shows. Use a custom --vh variable if svh is unsupported.
+        (function() {
+            if (!CSS.supports('height', '1svh')) {
+                const setVh = () => {
+                    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+                };
+                setVh();
+                window.addEventListener('resize', setVh);
+            }
+        })();
         document.addEventListener('DOMContentLoaded', () => {
+            // Track if CV has been initialized to defer heavy operations until needed
+            let cvInited = false;
             const siteContent = {
                 global: {
                     brandLine: "Deploying products + services for business outcomes.",
@@ -478,6 +503,7 @@
 
             // improved showPage syncs history and hash
             const showPage = (pageId, push = true) => {
+                // Always scroll to top on page switch
                 window.scrollTo(0, 0);
                 if (pageId === 'home') {
                     pageHome.classList.remove('hidden');
@@ -485,7 +511,12 @@
                 } else if (pageId === 'cv') {
                     pageHome.classList.add('hidden');
                     pageCv.classList.remove('hidden');
-                    // move focus to the CV page's headline for accessibility
+                    // Lazily initialize CV content on first entry
+                    if (!cvInited) {
+                        initCvPage();
+                        cvInited = true;
+                    }
+                    // Focus the CV headline for screen readers
                     const cvHeadline = document.getElementById('cv-headline');
                     if (cvHeadline) {
                         cvHeadline.focus();
@@ -557,10 +588,26 @@
                 let lines = [];
                 let animateId;
                 function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; orb.x = width / 2; orb.y = height / 2; }
-                function createParticles() { particles = []; let density = window.innerWidth < 768 ? 25 : 50; for (let i = 0; i < density; i++) { particles.push({ x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 1.5, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, }); } }
+                function createParticles() {
+                    particles = [];
+                    // Lower particle density on small screens to improve performance
+                    const density = window.innerWidth < 768 ? 12 : 40;
+                    for (let i = 0; i < density; i++) {
+                        particles.push({
+                            x: Math.random() * width,
+                            y: Math.random() * height,
+                            radius: Math.random() * 1.5,
+                            vx: (Math.random() - 0.5) * 0.3,
+                            vy: (Math.random() - 0.5) * 0.3,
+                        });
+                    }
+                }
                 function safeRect(el){ const r = el?.getBoundingClientRect?.(); return r && r.width && r.height ? r : null; }
+                // Flag indicating whether the hero section is on screen (used to pause animation on mobile)
+                let heroVisible = true;
                 function animate() {
-                    if (document.documentElement.dataset.motion === 'reduce') return;
+                    // Stop animating if the user prefers reduced motion or if the hero is off-screen
+                    if (document.documentElement.dataset.motion === 'reduce' || !heroVisible) return;
                     ctx.clearRect(0, 0, width, height);
                     particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > width) p.vx *= -1; if (p.y < 0 || p.y > height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(20, 198, 166, 0.3)'; ctx.fill(); });
                     orb.radius += (orb.targetRadius - orb.radius) * 0.08;
@@ -576,6 +623,19 @@
                         animateId = requestAnimationFrame(animate);
                     }
                 });
+
+                // Observe the hero section (#stage-1) to pause animation when scrolled out of view
+                const heroObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        heroVisible = entry.isIntersecting;
+                        if (heroVisible) {
+                            animateId = requestAnimationFrame(animate);
+                        } else {
+                            cancelAnimationFrame(animateId);
+                        }
+                    });
+                }, { threshold: 0.05 });
+                heroObserver.observe(document.getElementById('stage-1'));
                 const stageObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -615,8 +675,8 @@
                 document.querySelectorAll('#page-home .framework-svg g').forEach(el => {
                     // Add keyboard accessibility
                     el.setAttribute('tabindex', '0');
-                    // give each node an accessible name based on its tooltip
-                    if (el.dataset && el.dataset.tooltip) {
+                    // Assign accessible name based on tooltip text so keyboard users know what each node represents
+                    if (el.dataset.tooltip) {
                         el.setAttribute('aria-label', el.dataset.tooltip);
                     }
                     const showTip = (text, x, y) => {
@@ -696,11 +756,6 @@
                 function openStoryModal(ex) {
                     modalContainer.innerHTML = `<div id="story-modal" class="story-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div id="story-background" class="story-background"></div><div class="grid-lines"></div><div id="ai-orb" class="ai-orb" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);"></div><button id="modal-close-btn" class="absolute top-6 right-6 text-white/70 hover:text-white z-20 focus-ring rounded-full p-1">${XIcon}</button><div class="story-step" data-step="1"><h2 id="modal-title" class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 1s;">${ex.details.principle}</h2></div><div class="story-step" data-step="2"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">Problem</p><p class="text-xl md:text-2xl mt-2">${ex.details.problem}</p></div></div><div class="story-step" data-step="3"><div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl items-center justify-center"><div class="flip-card-container story-element w-full md:w-1/2 h-64" style="transition-delay: 0.2s;"><div class="flip-card w-full h-full"><div class="flip-card-front glowing-card p-6 flex flex-col justify-center items-center text-center"><p class="text-sm uppercase tracking-widest text-teal-300">Product</p><p class="text-lg mt-2">${ex.details.execution.product}</p></div><div class="flip-card-back glowing-card p-6 flex flex-col justify-center items-center text-center"><p class="text-sm uppercase tracking-widest text-violet-300">Services</p><p class="text-lg mt-2">${ex.details.execution.services}</p></div></div></div></div><button id="view-prototype-btn" class="story-element absolute bottom-12 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm focus-ring" style="transition-delay: 0.5s;">View Prototype</button></div><div class="story-step" data-step="4"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">Outcomes / ROI</p><p class="text-xl md:text-2xl mt-2">${ex.details.roi}</p></div></div><div class="story-step" data-step="5"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">AI Edge</p><p class="text-xl md:text-2xl mt-2">${ex.details.ai}</p></div></div><div class="story-step" data-step="6"><p class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 0.2s;">This concept shows how I design and deploy products + services for measurable business outcomes.</p><div class="story-element mt-8 flex gap-4" style="transition-delay: 0.5s;"><button id="see-another-btn" class="px-5 py-3 rounded-full border border-violet-500/30 text-indigo-100 hover:bg-violet-500/10 focus-ring">See Another Experiment</button><a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a 20-min intro</a></div></div><button id="story-next-btn" class="absolute bottom-6 left-6 px-4 py-2 rounded-full bg-white/10 text-white/80 hover:bg-white/20 z-20 backdrop-blur-sm focus-ring">Next</button></div>`;
                     const modal = document.getElementById('story-modal');
-                    // ensure close button has an accessible name
-                    const closeBtnEl = modal.querySelector('#modal-close-btn');
-                    if (closeBtnEl) {
-                        closeBtnEl.setAttribute('aria-label', 'Close modal');
-                    }
                     const root = document.getElementById('app-container');
                     // hide background from screen readers
                     root.setAttribute('aria-hidden', 'true');
@@ -839,16 +894,11 @@
                 document.querySelector('#page-cv #prism').innerHTML = cvData.future.focus.map((f, i) => 
                     `<div class="prism-face prism-face-${i+1}">${f}</div>`
                 ).join('');
-                // Provide screen readers a summary of prism keywords
-                const prismContainer = document.querySelector('#page-cv #prism-container');
-                if (prismContainer) {
-                    prismContainer.setAttribute('aria-label', 'Future focus areas: ' + cvData.future.focus.join(', '));
-                }
             };
 
             // --- Global Logic ---
+            // Initialize home page immediately; CV page will be initialized lazily when navigated to
             initHomePage();
-            initCvPage();
             
             // --- AI Chatbot Logic ---
             const chatbotWindow = document.getElementById('chatbot-window');
@@ -877,8 +927,6 @@
                     mountChatbot();
                     chatbotWindow.classList.remove('hidden'); 
                     setTimeout(() => { chatbotWindow.classList.remove('opacity-0', 'scale-95'); }, 10); 
-                    // set focus to the chatbot input when opening for keyboard users
-                    setTimeout(() => { chatbotInput && chatbotInput.focus(); }, 50);
                 } else { 
                     chatbotWindow.classList.add('opacity-0', 'scale-95'); 
                     setTimeout(() => { chatbotWindow.classList.add('hidden'); }, 300); 
@@ -941,6 +989,13 @@
                 if (e.target.tagName === 'BUTTON') {
                     processUserMessage(e.target.textContent);
                 }
+            });
+
+            // Enable tap-to-flip interaction for proof cards on touch devices
+            document.addEventListener('click', (e) => {
+                const card = e.target.closest('.proof-card');
+                if (!card) return;
+                card.classList.toggle('tapped');
             });
         });
     </script>
