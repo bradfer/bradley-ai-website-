@@ -1,837 +1,948 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Product Execution (AI as Accelerator)</title>
-  <meta
-    name="description"
-    content="I design, deploy, and service products so they get adopted and deliver measurable ROI. Explore applied experiments and an execution framework that ties products + services to outcomes."
-  />
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bradley Fernandes — Digital Product Execution</title>
+    <meta name="description" content="I design, deploy, and service products so they get adopted and deliver measurable ROI. Explore applied experiments and an execution framework that ties products + services to outcomes.">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  />
-  <link
-    rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap"
-      rel="stylesheet"
-    />
-  </noscript>
+    <!-- Social & SEO metadata -->
+    <meta property="og:title" content="Bradley Fernandes — Digital Product Execution">
+    <meta property="og:description" content="I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster.">
+    <!-- TODO: Replace with an actual image URL representing your portfolio -->
+    <meta property="og:image" content="/path/to/og-image.jpg">
+    <meta property="og:type" content="website">
+    <!-- TODO: Replace with your actual domain -->
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bradley Fernandes — Product Execution">
+    <meta name="twitter:description" content="I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster.">
+    <!-- TODO: Replace with your actual image URL -->
+    <meta name="twitter:image" content="/path/to/og-image.jpg">
+    <!-- Canonical and theme color -->
+    <!-- TODO: Replace href with your canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/">
+    <meta name="theme-color" content="#0a0d16">
 
-  <style>
-    :root {
-      color-scheme: dark;
-      --accent-color: #f7ff00; /* Cyber Yellow */
+    <!-- Structured data describing the author -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Bradley Fernandes",
+      "url": "https://yourdomain.com/",
+      "jobTitle": "Digital Product Execution Specialist",
+      "description": "Designing, deploying, and servicing products so they get adopted and deliver ROI.",
+      "image": "/path/to/profile.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/bradley-fernandes/"
+      ]
     }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Inter", sans-serif;
-      background-color: #0a0d16;
-      color: #e0e7ff;
-      font-size: 17px;
-    }
-    h1, h2 { font-family: "Chakra Petch", sans-serif; }
+    </script>
+    
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
 
-    .card {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 1rem;
-      box-shadow:
-        0 10px 15px -3px rgb(0 0 0 / 0.1),
-        0 4px 6px -4px rgb(0 0 0 / 0.1);
-      backdrop-filter: blur(16px);
-    }
-
-    .cta-primary {
-      background-color: var(--accent-color);
-      color: #0a0d16;
-      font-weight: 600;
-    }
-    .focus-ring:focus-visible {
-      outline: 2px solid var(--accent-color);
-      outline-offset: 2px;
-    }
-    .nav-link.active { color: #fff; }
-
-    /* Story / Canvas */
-    #homepage-story { position: relative; }
-    .story-stage {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; z-index: 2;
-    }
-    #story-canvas-container {
-      position: fixed; inset: 0 0 auto 0; height: 100vh; z-index: 1; pointer-events: none;
-    }
-    .story-content { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
-    .story-stage.active .story-content { opacity: 1; transform: translateY(0); }
-    .node { position: absolute; opacity: 0; transition: opacity .8s ease .5s; }
-    .story-stage.active .node { opacity: 1; }
-    #node-1 { top: 25%; left: 15%; }
-    #node-2 { top: 25%; right: 15%; }
-    #node-3 { top: 75%; left: 50%; transform: translateX(-50%); }
-
-    /* Framework SVG */
-    .framework-svg {
-      border-radius: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background-color: rgba(255, 255, 255, 0.02);
-      cursor: pointer;
-    }
-    .framework-svg .flow-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-line 3s ease-out forwards; }
-    .framework-svg .node-circle,
-    .framework-svg .node-text { opacity: 0; animation: fade-in 1s ease-out forwards; }
-    @keyframes draw-line { to { stroke-dashoffset: 0; } }
-    @keyframes fade-in { to { opacity: 1; } }
-    .framework-svg .ai-pulse { animation: pulse-glow 3s infinite ease-in-out; }
-    @keyframes pulse-glow {
-      0%, 100% { filter: drop-shadow(0 0 5px #0d9488); }
-      50% { filter: drop-shadow(0 0 15px #0d9488); }
-    }
-    #framework-tooltip {
-      position: fixed; background-color: rgba(10, 13, 22, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: .5rem; padding: .5rem .75rem;
-      font-size: .875rem; backdrop-filter: blur(8px);
-      pointer-events: none; opacity: 0; transition: opacity .3s ease; z-index: 120;
-    }
-
-    /* Modal + Effects */
-    .story-modal { position: fixed; inset: 0; z-index: 100; overflow: hidden; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .5s ease; }
-    .story-modal.active { opacity: 1; }
-    .story-background { position: absolute; inset: 0; background-size: 200% 200%; transition: background-image 1.5s ease; }
-    .bg-clubos { background-image: linear-gradient(45deg, #022c22, #0a1a3a); animation: gradient-flow 20s ease infinite; }
-    .bg-spendsensei { background-image: linear-gradient(45deg, #0f172a, #312e81); animation: gradient-flow 20s ease infinite; }
-    .bg-coffee { background-image: linear-gradient(45deg, #422006, #1e1b4b); animation: gradient-flow 20s ease infinite; }
-    .bg-learnai { background-image: linear-gradient(45deg, #1d4ed8, #5b21b6); animation: gradient-flow 20s ease infinite; }
-    .bg-mentalhealth { background-image: linear-gradient(45deg, #064e3b, #1e3a8a); animation: gradient-flow 20s ease infinite; }
-    @keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-    .grid-lines { position: absolute; inset: 0; background-image:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 40px 40px; animation: pan-grid 20s linear infinite;
-      opacity: 0; transition: opacity 1s ease .5s;
-    }
-    .story-modal.active .grid-lines { opacity: 1; }
-    @keyframes pan-grid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
-
-    .story-step { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility .8s; }
-    .story-step.active { opacity: 1; visibility: visible; }
-    .story-element { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
-    .story-step.active .story-element { opacity: 1; transform: translateY(0); }
-
-    .glowing-card {
-      background: rgba(10, 13, 22, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(20, 198, 166, 0.2), 0 0 40px rgba(122, 90, 248, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .ai-orb {
-      position: absolute; width: 50px; height: 50px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(20,198,166,0.8) 0%, rgba(122,90,248,0.6) 100%);
-      box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3);
-      transition: all 1s ease; animation: pulse 3s infinite ease-in-out;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3); }
-      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(20,198,166,0.7), 0 0 50px rgba(20,198,166,0.5); }
-    }
-
-    .flip-card-container { perspective: 1000px; }
-    .flip-card { position: relative; transform-style: preserve-3d; transition: transform .8s; }
-    .flip-card-container.flipped .flip-card { transform: rotateY(180deg); }
-    .flip-card-front, .flip-card-back {
-      position: absolute; width: 100%; height: 100%;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    }
-    .flip-card-back { transform: rotateY(180deg); }
-
-    /* Chatbot */
-    #chatbot-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 110; }
-    #chatbot-toggle {
-      width: 3.5rem; height: 3.5rem; border-radius: 9999px;
-      background-image: linear-gradient(to bottom right, #14c6a6, #7a5af8, #ec4899);
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-      display: grid; place-items: center; animation: pulse 2s infinite; transition: transform .3s ease;
-    }
-    #chatbot-toggle:hover { transform: scale(1.1); }
-
-    #chatbot-window {
-      position: absolute; bottom: 0; right: 0; width: 22rem; height: 70vh; max-height: 500px;
-      background-color: rgba(10, 13, 22, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-      backdrop-filter: blur(12px); display: flex; flex-direction: column;
-      transform-origin: bottom right; transition: opacity .3s ease, transform .3s ease;
-    }
-
-    .message-box {
-      position: fixed; inset: 0; background-color: rgba(0,0,0,0.7);
-      z-index: 200; display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .3s ease; pointer-events: none;
-    }
-    .message-box.active { opacity: 1; pointer-events: auto; }
-    .thinking-bubble { display: flex; gap: .25rem; align-items: center; padding: .75rem; }
-    .thinking-bubble span { width: .5rem; height: .5rem; background-color: #a5b4fc; border-radius: 9999px; animation: bounce 1.2s infinite ease-in-out; }
-    .thinking-bubble span:nth-child(2) { animation-delay: .2s; }
-    .thinking-bubble span:nth-child(3) { animation-delay: .4s; }
-    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-    .experiment-card { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
-    .experiment-card.visible { opacity: 1; transform: translateY(0); }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
-      .story-stage, .story-content { transform: none !important; }
-    }
-  </style>
-</head>
-
-<body>
-  <header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md">
-    <nav class="mx-auto flex max-w-6xl items-center justify-between p-4 text-indigo-100">
-      <a href="#" class="font-bold text-white focus-ring rounded">Bradley Fernandes</a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#stage-3" class="nav-link hover:text-white focus-ring rounded">Case Studies</a>
-        <a href="#stage-4" class="nav-link hover:text-white focus-ring rounded">Framework</a>
-        <a href="#about" class="nav-link hover:text-white focus-ring rounded">About</a>
-        <a href="/Bradley_Fernandes_CV.pdf" target="_blank" class="nav-link hover:text-white focus-ring rounded">Download CV</a>
-      </div>
-      <a href="#contact" class="cta-primary px-4 py-2 text-sm rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Work with me</a>
-    </nav>
-  </header>
-
-  <main id="homepage-story">
-    <div id="story-canvas-container"><canvas id="story-canvas"></canvas></div>
-
-    <section id="stage-1" class="story-stage">
-      <div class="story-content text-center px-4">
-        <h1 id="main-headline" class="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-violet-400"></h1>
-        <p id="hero-subheadline" class="mt-4 max-w-2xl mx-auto text-lg text-indigo-100"></p>
-        <div id="hero-quick-actions" class="mt-6 flex flex-wrap items-center justify-center gap-3"></div>
-        <div id="hero-outcomes-strip" class="mt-8 flex flex-wrap justify-center gap-2 text-xs text-indigo-200/90"></div>
-      </div>
-    </section>
-
-    <section id="stage-2" class="story-stage">
-      <div class="story-content w-full h-full relative">
-        <div id="node-1" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">Principle-Driven Strategy</h3></div>
-        <div id="node-2" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">End-to-End Execution</h3></div>
-        <div id="node-3" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">AI as an Accelerator</h3></div>
-      </div>
-    </section>
-
-    <section id="stage-3" class="story-stage bg-[#0a0d16]">
-      <div class="story-content w-full max-w-6xl mx-auto px-6">
-        <h2 id="experiments-title" class="text-3xl font-bold text-center mb-4"></h2>
-        <div id="social-proof-bar" class="mx-auto max-w-6xl px-6 mb-6"></div>
-        <p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto"></p>
-        <div id="experiment-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-      </div>
-    </section>
-
-    <section id="stage-4" class="story-stage bg-[#0a0d16]">
-      <div class="story-content w-full max-w-5xl mx-auto px-6 text-center">
-        <h2 id="framework-title" class="text-3xl font-bold text-white mb-4"></h2>
-        <p id="framework-subtitle" class="text-lg text-indigo-100 mb-8"></p>
-        <div class="relative">
-          <div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-teal-400/20 via-violet-500/20 to-pink-500/20 blur-2xl"></div>
-
-          <svg viewBox="0 0 800 400" class="framework-svg w-full">
-            <defs>
-              <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#14c6a6" />
-                <stop offset="100%" style="stop-color:#7a5af8" />
-              </linearGradient>
-              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            <path d="M 100 200 C 150 100, 250 100, 300 200 S 450 300, 500 200 S 650 100, 700 200" stroke="url(#flowGradient)" stroke-width="2" fill="none" class="flow-path" />
-            <path d="M 400 50 V 160" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: .5s;" />
-            <path d="M 400 350 V 240" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: .7s;" />
-
-            <g class="node-circle" style="animation-delay: 1s;" data-tooltip="The core belief that guides the work.">
-              <circle cx="100" cy="200" r="10" fill="#14c6a6" filter="url(#glow)" />
-            </g>
-            <text x="100" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.2s;">Principle</text>
-
-            <g class="node-circle" style="animation-delay: 1.5s;" data-tooltip="The specific business pain point being addressed.">
-              <circle cx="300" cy="200" r="10" fill="#3b82f6" filter="url(#glow)" />
-            </g>
-            <text x="300" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.7s;">Problem</text>
-
-            <g class="node-circle" style="animation-delay: 2s;" data-tooltip="The product and the services that ensure its adoption.">
-              <circle cx="500" cy="200" r="10" fill="#8b5cf6" filter="url(#glow)" />
-            </g>
-            <text x="500" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;">Execution</text>
-            <text x="500" y="255" fill="#a5b4fc" font-size="12" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;">(Product + Services)</text>
-
-            <g class="node-circle" style="animation-delay: 2.5s;" data-tooltip="The measurable business effect: revenue, savings, or risk reduction.">
-              <circle cx="700" cy="200" r="10" fill="#ec4899" filter="url(#glow)" />
-            </g>
-            <text x="700" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.7s;">Outcomes</text>
-
-            <g class="ai-pulse" data-tooltip="AI applied to amplify speed, quality, or value.">
-              <circle cx="400" cy="200" r="25" fill="#0a0d16" stroke="#0d9488" stroke-width="2" />
-              <text x="400" y="205" fill="#14c6a6" font-size="18" text-anchor="middle" font-weight="bold" class="node-text" style="animation-delay: .8s;">AI</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="py-24 bg-[#0a0d16] relative z-10">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 id="about-headline" class="text-3xl font-bold text-white mb-4"></h2>
-        <p id="about-narrative" class="text-lg text-indigo-100"></p>
-      </div>
-    </section>
-
-    <section id="contact" class="py-24 bg-gradient-to-t from-[#0a0d16] to-[#0c0d1e] relative z-10">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 id="contact-headline" class="text-3xl font-bold text-white mb-4"></h2>
-        <p id="contact-copy" class="text-lg text-indigo-100 mb-8"></p>
-        <div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3"></div>
-      </div>
-    </section>
-
-    <footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]">
-      <p id="footer-line"></p>
-    </footer>
-  </main>
-
-  <div id="modal-container"></div>
-  <div id="message-box-container"></div>
-  <div id="framework-tooltip"></div>
-
-  <div id="chatbot-container">
-    <div id="chatbot-window" class="hidden opacity-0 scale-95">
-      <div class="flex items-center justify-between p-4 border-b border-white/10 bg-white/5">
-        <div class="flex items-center gap-2">
-          <div class="w-3 h-3 rounded-full bg-gradient-to-tr from-teal-400 to-pink-500"></div>
-          <span class="font-semibold text-white">AI Guide</span>
-        </div>
-        <button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1" aria-label="Close chatbot">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <div id="chatbot-messages" class="flex-1 p-4 space-y-4 overflow-y-auto"></div>
-      <div class="p-4 border-t border-white/10">
-        <div id="chatbot-quick-replies" class="flex flex-wrap gap-2 mb-3"></div>
-        <input id="chatbot-input" type="text" placeholder="Ask me anything..." class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring" />
-      </div>
-    </div>
-    <button id="chatbot-toggle" class="focus-ring" aria-haspopup="dialog" aria-controls="chatbot-window" aria-expanded="false">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-    </button>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const siteContent = {
-        global: {
-          brandLine: "Deploying products + services for business outcomes.",
-          footerLine: "© Bradley Fernandes — Applied AI &amp; Product Execution",
-          cvPath: "/Bradley_Fernandes_CV.pdf",
-          email: "bradley@example.com",
-          calendarLink: "https://cal.com/yourhandle/intro",
-        },
-        home: {
-          headline: "Great concepts are easy. Measurable outcomes are hard.",
-          subheadline: "I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster. See proof below or grab a quick intro."
-        },
-        framework: {
-          title: "Execution that guarantees ROI",
-          subtitle: "Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality."
-        },
-        experiments: {
-          title: "Applied Experiments (Not Startups)",
-          intro: "Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution."
-        },
-        about: {
-          headline: "What you get when we work together",
-          narrative: "I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value."
-        },
-        contact: {
-          headline: "Start with a small win",
-          copy: "Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value."
-        },
-        chatbot: {
-          greeting: "Welcome! I'm the AI guide for this portfolio. Think of me as your co-pilot. What are you curious about?",
-        },
-        experimentsData: [
-          { id: "clubos", title: "ClubOS", tagline: "Operating system for sports clubs", description: "Streamline scheduling and communication while unlocking sponsor revenue.", details: { for: "Sports club organizers", problemShort: "Wasted hours on admin &amp; missed revenue", principle: "Vertical SaaS succeeds when it matches real workflows and embeds adoption into the product.", problem: "Clubs waste hours juggling schedules and messages across apps, and they miss sponsor revenue because visibility is fragmented.", execution: { product: "Integrated scheduling, team comms, and sponsor placement tools.", services: "Onboarding playbooks for club admins, sponsor activation templates, and season-start setup support." }, roi: "10+ admin hours saved per week", ai: "Automated schedule suggestions, conflict detection, and drafted announcements tailored to age group, team, and tone." } },
-          { id: "spendsensei", title: "Spend Sensei", tagline: "AI-powered spend intelligence", description: "Catch leakage and anomalies early—make finance proactive.", details: { for: "Finance &amp; Ops leaders", problemShort: "Leakage and anomalies spotted too late", principle: "Finance should be transparent, predictive, and actionable—built on continuous signal, not month-end surprises.", problem: "Leakage and anomalies go unnoticed until close; investigations are manual, slow, and expensive.", execution: { product: "Real-time anomaly detection, variance analysis, and drill-downs by vendor, GL, and cost center.", services: "FinOps advisory to embed alerts in rituals, training for anomaly triage, and governance templates." }, roi: "1–3% controllable spend reduction", ai: "Predictive detection on top of time series and seasonality, natural-language queries (“Why did SaaS spend spike in Q2?”), and autogenerated variance explanations." } },
-          { id: "coffee", title: "Coffee Trading Dashboard", tagline: "Fair, transparent agri-trade", description: "Give estate owners visibility and pricing power in fragmented markets.", details: { for: "Supply chain managers", problemShort: "Lack of market visibility &amp; buyer access", principle: "Transparency unlocks fairer value distribution in fragmented markets.", problem: "Estate owners lack live price clarity and buyer access, leading to weaker negotiations and reliance on intermediaries.", execution: { product: "Live price dashboard, buyer directory, quality/lot tracking, and deal room.", services: "Training for data capture and quality metrics, buyer matchmaking workflows, and export documentation support." }, roi: "Higher farm-gate prices", ai: "Market trend prediction by grade and region, fair-price recommendations, buyer/lot matching based on quality and history." } },
-          { id: "learnai", title: "Learn with AI", tagline: "A new way to master anything", description: "Replace passive courses with adaptive, applied coaching.", details: { for: "HR &amp; Enablement teams", problemShort: "Static courses don't build capability", principle: "Learning sticks when it’s active, adaptive, and immediately applied.", problem: "Static courses don’t adapt to learner context; completion doesn’t equal capability.", execution: { product: "Study mode with targeted micro-challenges and prompts, progress dashboards, and reflections.", services: "Workshops, team playbooks, and enablement sprints tied to real work." }, roi: "Faster skill acquisition", ai: "Personalized coaching, adaptive paths based on performance, instant feedback on real artifacts (docs, code, decks)." } },
-          { id: "mentalhealth", title: "Mental Health Tech", tagline: "Journaling Meets Wearables", description: "A wellbeing companion that connects mood journaling with wearable data, giving a complete view of mental health.", details: { for: "Individuals, Employers, Providers", problemShort: "Siloed mental &amp; physical health data", principle: "Mental health isn’t just in the mind or the body — it’s in the connection between the two.", problem: "Journaling apps capture feelings. Wearables capture stress, sleep, and movement. But they live in silos — missing the complete picture of wellbeing.", execution: { product: "Daily micro-journaling prompts, wearable sync with mood overlays, and smart insights.", services: "Optional therapist dashboard for richer, precision care." }, roi: "Self-awareness &amp; early burnout detection", ai: "NLP interprets journal tone, pattern detection links mood with biometrics, and predictive nudges." } },
-        ],
-      };
-
-      const ChevronRightIcon = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-             viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             class="mt-1 h-5 w-5 text-indigo-400"><path d="m9 18 6-6-6-6"/></svg>`;
-
-      /* FIX: removed stray `24"` and malformed attribute */
-      const XIcon = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-             viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             class="h-5 w-5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
-
-      // --- Populate Content ---
-      document.querySelector('nav > a.font-bold').textContent = "Bradley Fernandes";
-      document.getElementById('main-headline').textContent = siteContent.home.headline;
-      document.getElementById('hero-subheadline').textContent = siteContent.home.subheadline;
-      document.getElementById('experiments-title').textContent = siteContent.experiments.title;
-      document.getElementById('experiments-intro').textContent = siteContent.experiments.intro;
-      document.getElementById('framework-title').textContent = siteContent.framework.title;
-      document.getElementById('framework-subtitle').textContent = siteContent.framework.subtitle;
-      document.getElementById('about-headline').textContent = siteContent.about.headline;
-      document.getElementById('about-narrative').textContent = siteContent.about.narrative;
-      document.getElementById('contact-headline').textContent = siteContent.contact.headline;
-      document.getElementById('contact-copy').textContent = siteContent.contact.copy;
-      document.getElementById('footer-line').textContent = siteContent.global.footerLine;
-      document.title = "Bradley Fernandes — Digital Product Execution";
-
-      // --- Populate Dynamic Elements ---
-      document.getElementById('hero-quick-actions').innerHTML = `
-        <a href="#stage-3" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">See Case Studies</a>
-        <a href="#stage-4" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">View framework</a>
-        <a href="${siteContent.global.cvPath}" target="_blank" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring">Download CV</a>
-        <a href="#contact" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 focus-ring">Book intro</a>
-      `;
-
-      document.getElementById('hero-outcomes-strip').innerHTML = `
-        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Time‑to‑value ↓</span>
-        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Adoption ↑</span>
-        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Opex ↓</span>
-        <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Audit readiness ↑</span>
-      `;
-
-      document.getElementById('social-proof-bar').innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center">
-            <div class="text-2xl font-semibold text-white">10–15 hrs</div>
-            <div class="text-sm text-indigo-300">Admin time saved / club / week*</div>
-          </div>
-          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center">
-            <div class="text-2xl font-semibold text-white">1–3%</div>
-            <div class="text-sm text-indigo-300">Controllable spend reduction</div>
-          </div>
-          <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center">
-            <div class="text-2xl font-semibold text-white">Early Detection</div>
-            <div class="text-sm text-indigo-300">Proactive wellbeing insights</div>
-          </div>
-        </div>
-        <p class="mt-2 text-[11px] text-indigo-400/80 text-center">*Modeled results; project-dependent.</p>
-      `;
-
-      document.getElementById('contact-ctas').innerHTML = `
-        <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring">Book intro on LinkedIn</a>
-      `;
-
-      // --- Homepage Storyflow Animation Logic ---
-      const canvas = document.getElementById('story-canvas');
-      const ctx = canvas.getContext('2d');
-      const stages = document.querySelectorAll('.story-stage');
-      let width, height;
-      let orb = { x: 0, y: 0, radius: 0, targetRadius: 5 };
-      let particles = [];
-      let lines = [];
-
-      function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        orb.x = width / 2; orb.y = height / 2;
-      }
-      function createParticles() {
-        particles = [];
-        let density = window.innerWidth < 768 ? 25 : 50;
-        for (let i = 0; i < density; i++) {
-          particles.push({
-            x: Math.random() * width, y: Math.random() * height,
-            radius: Math.random() * 1.5,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-          });
+    <!-- Tailwind CDN only; removed Tone.js as unused -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
+    </noscript>
+    
+    <style>
+        :root { 
+            color-scheme: dark; 
+            --accent-color: #F7FF00; /* Cyber Yellow */
+            /* define missing color variables used by skills and glow */
+            --teal: #14c6a6;
+            --amber: #f59e0b;
+            --violet: #7a5af8;
         }
-      }
-      function animate() {
-        if (document.documentElement.dataset.motion === 'reduce') return;
-        ctx.clearRect(0, 0, width, height);
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #0a0d16; color: #e0e7ff; font-size: 17px; }
+        h1, h2, h3 { font-family: 'Chakra Petch', sans-serif; }
+        .card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); backdrop-filter: blur(16px); }
+        /* define glass card used across CV/timeline/proof */
+        .glass-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 1rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        .cta-primary {
+            background-color: var(--accent-color);
+            color: #0a0d16;
+            font-weight: 600;
+        }
+        .focus-ring:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        .nav-link.active {
+            color: white;
+        }
+        #homepage-story { position: relative; }
+        .story-stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+        #story-canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; pointer-events: none; }
+        .story-content { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .story-stage.active .story-content { opacity: 1; transform: translateY(0); }
+        .node { position: absolute; opacity: 0; transition: opacity 0.8s ease 0.5s; }
+        .story-stage.active .node { opacity: 1; }
+        #node-1 { top: 25%; left: 15%; }
+        #node-2 { top: 25%; right: 15%; }
+        #node-3 { top: 75%; left: 50%; transform: translateX(-50%); }
+        .framework-svg { border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.02); cursor: pointer; }
+        .framework-svg .flow-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-line 3s ease-out forwards; }
+        .framework-svg .node-circle, .framework-svg .node-text { opacity: 0; animation: fade-in 1s ease-out forwards; }
+        @keyframes draw-line { to { stroke-dashoffset: 0; } }
+        @keyframes fade-in { to { opacity: 1; } }
+        .framework-svg .ai-pulse { animation: pulse-glow 3s infinite ease-in-out; }
+        @keyframes pulse-glow { 0%, 100% { filter: drop-shadow(0 0 5px #0d9488); } 50% { filter: drop-shadow(0 0 15px #0d9488); } }
+        #framework-tooltip { position: fixed; background-color: rgba(10, 13, 22, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; backdrop-filter: blur(8px); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 120; }
+        .story-modal { position: fixed; inset: 0; z-index: 100; overflow: hidden; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; }
+        .story-modal.active { opacity: 1; }
+        .story-background { position: absolute; inset: 0; background-size: 200% 200%; transition: background-image 1.5s ease; }
+        .bg-clubos { background-image: linear-gradient(45deg, #022c22, #0a1a3a); animation: gradient-flow 20s ease infinite; }
+        .bg-spendsensei { background-image: linear-gradient(45deg, #0f172a, #312e81); animation: gradient-flow 20s ease infinite; }
+        .bg-coffee { background-image: linear-gradient(45deg, #422006, #1e1b4b); animation: gradient-flow 20s ease infinite; }
+        .bg-learnai { background-image: linear-gradient(45deg, #1d4ed8, #5b21b6); animation: gradient-flow 20s ease infinite; }
+        .bg-mentalhealth { background-image: linear-gradient(45deg, #064e3b, #1e3a8a); animation: gradient-flow 20s ease infinite; }
+        @keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; animation: pan-grid 20s linear infinite; opacity: 0; transition: opacity 1s ease 0.5s; }
+        .story-modal.active .grid-lines { opacity: 1; }
+        @keyframes pan-grid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+        .story-step { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s; }
+        .story-step.active { opacity: 1; visibility: visible; }
+        .story-element { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .story-step.active .story-element { opacity: 1; transform: translateY(0); }
+        .glowing-card { background: rgba(10, 13, 22, 0.5); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 1rem; box-shadow: 0 0 20px rgba(20, 198, 166, 0.2), 0 0 40px rgba(122, 90, 248, 0.1); backdrop-filter: blur(10px); }
+        .ai-orb { position: absolute; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(20,198,166,0.8) 0%, rgba(122,90,248,0.6) 100%); box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3); transition: all 1s ease; animation: pulse 3s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(20,198,166,0.5), 0 0 30px rgba(20,198,166,0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(20,198,166,0.7), 0 0 50px rgba(20,198,166,0.5); } }
+        .flip-card-container { perspective: 1000px; }
+        .flip-card { position: relative; transform-style: preserve-3d; transition: transform 0.8s; }
+        .flip-card-container.flipped .flip-card { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .flip-card-back { transform: rotateY(180deg); }
+        #chatbot-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 110; }
+        #chatbot-toggle { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background-image: linear-gradient(to bottom right, #14c6a6, #7a5af8, #ec4899); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); display: grid; place-items: center; animation: pulse 2s infinite; transition: transform 0.3s ease; }
+        #chatbot-toggle:hover { transform: scale(1.1); }
+        #chatbot-window { position: absolute; bottom: 0; right: 0; width: 22rem; height: 70vh; max-height: 500px; background-color: rgba(10, 13, 22, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); backdrop-filter: blur(12px); display: flex; flex-direction: column; transform-origin: bottom right; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .message-box { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .message-box.active { opacity: 1; pointer-events: auto; }
+        .thinking-bubble { display: flex; gap: 0.25rem; align-items: center; padding: 0.75rem; }
+        .thinking-bubble span { width: 0.5rem; height: 0.5rem; background-color: #a5b4fc; border-radius: 9999px; animation: bounce 1.2s infinite ease-in-out; }
+        .thinking-bubble span:nth-child(2) { animation-delay: 0.2s; }
+        .thinking-bubble span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+        .experiment-card { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .experiment-card.visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+          * { animation: none !important; transition: none !important; }
+          .story-stage, .story-content { transform: none !important; }
+        }
+        .timeline-container { -ms-overflow-style: none; scrollbar-width: none; }
+        .timeline-container::-webkit-scrollbar { display: none; }
+        .timeline-node { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .timeline-node:hover { transform: translateY(-8px); box-shadow: 0 0 30px rgba(20, 198, 166, 0.3); }
+        .skill-card { transition: background-color 0.3s ease; }
+        .skill-card:hover { background-color: rgba(255, 255, 255, 0.07); }
+        .proof-card-inner { transform-style: preserve-3d; transition: transform 0.6s; }
+        .proof-card:hover .proof-card-inner { transform: rotateY(180deg); }
+        /* allow keyboard users to flip proof cards on focus */
+        .proof-card:focus .proof-card-inner { transform: rotateY(180deg); }
+        .proof-card-front, .proof-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .proof-card-back { transform: rotateY(180deg); }
+        /* optional animated halo used in skills */
+        .halo {
+            position: absolute; inset: -1px;
+            pointer-events: none; border-radius: 1rem;
+            box-shadow: 0 0 0 1px rgba(255,255,255,.08),
+                        0 0 60px var(--glow-color, rgba(20,198,166,.25));
+        }
+        /* subtle animated glow wrapper */
+        .animate-glow {
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+        @keyframes glow-pulse {
+            0%,100% { opacity: .6; filter: blur(24px); }
+            50%     { opacity: 1;  filter: blur(32px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#homepage-story" class="sr-only focus:not-sr-only focus-ring absolute top-0 left-0 bg-indigo-900 text-white px-3 py-2 z-50">Skip to main content</a>
+    <div id="app-container">
+        <!-- Main Portfolio Page -->
+        <div id="page-home">
+            <header class="fixed top-0 left-0 right-0 z-40 bg-black/10 backdrop-blur-md" role="banner">
+                <nav role="navigation" aria-label="Main Navigation" class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100">
+                    <a href="#" data-page="home" class="page-link font-bold text-white focus-ring rounded">Bradley Fernandes</a>
+                    <div class="hidden md:flex items-center gap-6 text-sm">
+                        <a href="#stage-3" class="nav-link hover:text-white focus-ring rounded">Case Studies</a>
+                        <a href="#stage-4" class="nav-link hover:text-white focus-ring rounded">Framework</a>
+                        <a href="#" data-page="cv" class="page-link nav-link hover:text-white focus-ring rounded">Living CV</a>
+                        <a href="#about" class="nav-link hover:text-white focus-ring rounded">About</a>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <!-- removed sound toggle; tone.js unused -->
+                        <a href="#contact" class="cta-primary px-4 py-2 text-sm rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Work with me</a>
+                    </div>
+                </nav>
+            </header>
 
-        particles.forEach(p => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(20, 198, 166, 0.3)'; ctx.fill();
-        });
+            <main id="homepage-story" role="main">
+                <div id="story-canvas-container"><canvas id="story-canvas"></canvas></div>
+                <!-- stage 1 hero: render headline and subhead server-side for better LCP -->
+                <section id="stage-1" class="story-stage">
+                    <div class="story-content text-center px-4">
+                        <h1 id="main-headline" class="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-violet-400">
+                          Great concepts are easy. Measurable outcomes are hard.
+                        </h1>
+                        <p id="hero-subheadline" class="mt-4 max-w-2xl mx-auto text-lg text-indigo-100">
+                          I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster. See proof below or grab a quick intro.
+                        </p>
+                        <div id="hero-quick-actions" class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                          <a href="#stage-3" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">See Case Studies</a>
+                          <a href="#stage-4" class="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-indigo-100 hover:bg-white/15 focus-ring">View framework</a>
+                          <a href="#" data-page="cv" class="page-link px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring">Living CV</a>
+                          <a href="#contact" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 focus-ring">Book intro</a>
+                        </div>
+                        <div id="hero-outcomes-strip" class="mt-8 flex flex-wrap justify-center gap-2 text-xs text-indigo-200/90">
+                          <!-- will be filled by script -->
+                        </div>
+                    </div>
+                </section>
+                <section id="stage-2" class="story-stage">
+                    <div class="story-content w-full h-full relative">
+                        <div id="node-1" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">Principle-Driven Strategy</h3></div>
+                        <div id="node-2" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">End-to-End Execution</h3></div>
+                        <div id="node-3" class="node glowing-card p-4 text-center"><h3 class="font-semibold text-teal-300">AI as an Accelerator</h3></div>
+                    </div>
+                </section>
+                <section id="stage-3" class="story-stage bg-[#0a0d16]">
+                    <div class="story-content w-full max-w-6xl mx-auto px-6">
+                        <h2 id="experiments-title" class="text-3xl font-bold text-center mb-4">Applied Experiments (Not Startups)</h2>
+                        <div id="social-proof-bar" class="mx-auto max-w-6xl px-6 mb-6"></div>
+                        <p id="experiments-intro" class="text-indigo-100 text-center mb-8 max-w-3xl mx-auto">Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution.</p>
+                        <div id="experiment-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+                    </div>
+                </section>
+                <section id="stage-4" class="story-stage bg-[#0a0d16]">
+                    <div class="story-content w-full max-w-5xl mx-auto px-6 text-center">
+                        <h2 id="framework-title" class="text-3xl font-bold text-white mb-4">Execution that guarantees ROI</h2>
+                        <p id="framework-subtitle" class="text-lg text-indigo-100 mb-8">Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality.</p>
+                        <div class="relative">
+                            <div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-teal-400/20 via-violet-500/20 to-pink-500/20 blur-2xl animate-glow"></div>
+                            <svg viewBox="0 0 800 400" class="framework-svg w-full" role="img" aria-labelledby="framework-title">
+                                <title id="framework-title">Execution Framework Diagram</title>
+                                <defs><linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#14c6a6" /><stop offset="100%" style="stop-color:#7a5af8" /></linearGradient><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                                <path d="M 100 200 C 150 100, 250 100, 300 200 S 450 300, 500 200 S 650 100, 700 200" stroke="url(#flowGradient)" stroke-width="2" fill="none" class="flow-path" />
+                                <path d="M 400 50 V 160" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: 0.5s;"/><path d="M 400 350 V 240" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4" class="flow-path" style="animation-delay: 0.7s;"/>
+                                <g class="node-circle" style="animation-delay: 1s;" data-tooltip="The core belief that guides the work."><circle cx="100" cy="200" r="10" fill="#14c6a6" filter="url(#glow)"/></g><text x="100" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.2s;">Principle</text>
+                                <g class="node-circle" style="animation-delay: 1.5s;" data-tooltip="The specific business pain point being addressed."><circle cx="300" cy="200" r="10" fill="#3b82f6" filter="url(#glow)"/></g><text x="300" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 1.7s;">Problem</text>
+                                <g class="node-circle" style="animation-delay: 2s;" data-tooltip="The product and the services that ensure its adoption."><circle cx="500" cy="200" r="10" fill="#8b5cf6" filter="url(#glow)"/></g><text x="500" y="235" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;">Execution</text><text x="500" y="255" fill="#a5b4fc" font-size="12" text-anchor="middle" class="node-text" style="animation-delay: 2.2s;">(Product + Services)</text>
+                                <g class="node-circle" style="animation-delay: 2.5s;" data-tooltip="The measurable business effect: revenue, savings, or risk reduction."><circle cx="700" cy="200" r="10" fill="#ec4899" filter="url(#glow)"/></g><text x="700" y="165" fill="#e0e7ff" font-size="16" text-anchor="middle" class="node-text" style="animation-delay: 2.7s;">Outcomes</text>
+                                <g class="ai-pulse" data-tooltip="AI applied to amplify speed, quality, or value."><circle cx="400" cy="200" r="25" fill="#0a0d16" stroke="#0d9488" stroke-width="2"/><text x="400" y="205" fill="#14c6a6" font-size="18" text-anchor="middle" font-weight="bold" class="node-text" style="animation-delay: 0.8s;">AI</text></g>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+                <section id="about" class="py-24 bg-[#0a0d16] relative z-10">
+                    <div class="max-w-4xl mx-auto px-6 text-center">
+                         <h2 id="about-headline" class="text-3xl font-bold text-white mb-4">What you get when we work together</h2>
+                         <p id="about-narrative" class="text-lg text-indigo-100">I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value.</p>
+                    </div>
+                </section>
+                 <section id="contact" class="py-24 bg-gradient-to-t from-[#0a0d16] to-[#0c0d1e] relative z-10">
+                    <div class="max-w-4xl mx-auto px-6 text-center">
+                         <h2 id="contact-headline" class="text-3xl font-bold text-white mb-4">Start with a small win</h2>
+                         <p id="contact-copy" class="text-lg text-indigo-100 mb-8">Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value.</p>
+                         <div id="contact-ctas" class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                            <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring">Book intro on LinkedIn</a>
+                            <a href="mailto:bradley@example.com" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring">Email me your idea</a>
+                         </div>
+                    </div>
+                </section>
+                <footer class="py-16 text-center text-indigo-200 relative z-10 bg-[#0a0d16]" role="contentinfo">
+                    <p id="footer-line">© Bradley Fernandes — Applied AI & Product Execution</p>
+                </footer>
+            </main>
+        </div>
 
-        orb.radius += (orb.targetRadius - orb.radius) * 0.08;
-        ctx.beginPath(); ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
-        const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
-        gradient.addColorStop(0, 'rgba(20, 198, 166, 0.8)');
-        gradient.addColorStop(1, 'rgba(122, 90, 248, 0)');
-        ctx.fillStyle = gradient; ctx.fill();
+        <!-- Living CV Page -->
+        <div id="page-cv" class="hidden">
+            <header class="sticky top-0 z-50 bg-[#0a0d16]/80 backdrop-blur-md" role="banner">
+                <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 text-indigo-100" role="navigation" aria-label="CV Navigation">
+                    <a href="#" data-page="home" class="page-link font-bold text-white focus-ring rounded">Bradley Fernandes</a>
+                    <div class="hidden md:flex items-center gap-6 text-sm">
+                        <a href="#" data-page="home" class="page-link hover:text-white focus-ring rounded">Home</a>
+                        <a href="#" class="text-white font-semibold focus-ring rounded">Living CV</a>
+                    </div>
+                     <div class="flex items-center gap-4">
+                        <a href="#" data-page="home" class="page-link cta-primary px-4 py-2 text-sm rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Back to Portfolio</a>
+                    </div>
+                </nav>
+            </header>
+            <main class="overflow-x-hidden">
+                <section class="relative text-center py-20 md:py-28 px-4 overflow-hidden">
+                     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#0a0d16] via-[#0a0d16] to-[#0c0d1e]"></div>
+                     <div class="absolute inset-0 -z-10 opacity-20" style="background-image: radial-gradient(circle, rgba(20, 198, 166, 0.3) 0%, transparent 40%);"></div>
+                    <h1 id="cv-headline" tabindex="-1" class="text-3xl md:text-5xl font-bold tracking-tight text-white max-w-4xl mx-auto">Enterprise Software Execution | Design → Delivery → Adoption → Value Realisation | AI to Business Outcomes</h1>
+                    <p id="cv-subheadline" class="mt-4 max-w-3xl mx-auto text-lg text-indigo-200">Over a decade turning complex SaaS into measurable ROI. From BI pipelines to global partner ecosystems, I’ve built a career around one idea: execution is where strategy meets reality.</p>
+                    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                        <a id="cv-download-cta" href="#" target="_blank" rel="noopener" class="px-5 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
+                        <a href="#timeline" class="relative cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">
+                            <span class="absolute -inset-0.5 rounded-full bg-inherit opacity-0 group-hover:opacity-75 animate-pulse"></span>
+                            Explore Interactive CV
+                        </a>
+                    </div>
+                </section>
+                <section id="key-achievements" class="py-16 bg-[#0c0d1e]">
+                    <div class="max-w-4xl mx-auto px-4">
+                        <h2 class="text-center text-lg font-semibold text-indigo-300 mb-6">Key Achievements</h2>
+                        <div id="achievements-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center"></div>
+                    </div>
+                </section>
+                <section id="timeline" class="py-20 md:py-28">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Career Timeline</h2>
+                        <p class="text-center text-indigo-200 mb-12">An interactive journey through a decade of execution.</p>
+                        <div class="desktop-timeline relative">
+                            <div class="timeline-container flex overflow-x-auto snap-x snap-mandatory gap-8 pb-8 px-4"></div>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-indigo-400 animate-pulse">Scroll →</div>
+                        </div>
+                        <div class="mobile-timeline space-y-4"></div>
+                    </div>
+                </section>
+                <section id="skills" class="py-20 md:py-28 bg-[#0c0d1e]">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Capability Map</h2>
+                        <p class="text-center text-indigo-200 mb-12">Core skills forged through enterprise-scale challenges.</p>
+                        <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+                    </div>
+                </section>
+                <section id="proof" class="py-20 md:py-28">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Proof Points</h2>
+                        <p class="text-center text-indigo-200 mb-12">Selected case studies linking action to outcome.</p>
+                        <div id="proof-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+                    </div>
+                </section>
+                <section id="outcomes" class="py-20 md:py-28 bg-[#0c0d1e]">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Outcomes Dashboard</h2>
+                        <p class="text-center text-indigo-200 mb-12">Execution measured by the only thing that matters: impact.</p>
+                        <div id="outcomes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"></div>
+                    </div>
+                </section>
+                <section id="future" class="py-20 md:py-28 text-center flex flex-col items-center">
+                     <div class="max-w-3xl mx-auto px-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Future Edge</h2>
+                        <p id="future-statement" class="text-lg text-indigo-100 mb-12"></p>
+                    </div>
+                    <div id="prism-container">
+                        <div id="prism"></div>
+                    </div>
+                </section>
+            </main>
+            <footer class="py-16 bg-[#0a0d16] border-t border-white/10" role="contentinfo">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <div class="flex items-center justify-center gap-6 mb-8">
+                         <a href="/Bradley_Fernandes_CV.pdf" target="_blank" rel="noopener" class="px-4 py-2 rounded-full border border-white/20 text-white hover:bg-white/10 focus-ring transition-colors">Download CV</a>
+                         <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a Conversation</a>
+                    </div>
+                    <p id="cv-footer-line" class="text-sm text-indigo-300"></p>
+                </div>
+            </footer>
+        </div>
 
-        lines.forEach(line => {
-          ctx.beginPath(); ctx.moveTo(line.x1, line.y1); ctx.lineTo(line.x2, line.y2);
-          ctx.strokeStyle = `rgba(20, 198, 166, ${line.opacity})`; ctx.lineWidth = 1; ctx.stroke();
-        });
+        <div id="modal-container"></div>
+        <div id="message-box-container"></div>
+        <div id="framework-tooltip"></div>
 
-        requestAnimationFrame(animate);
-      }
+        <div id="chatbot-container">
+            <div id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-heading" class="hidden opacity-0 scale-95">
+                <div class="flex items-center justify-between p-4 border-b border-white/10 bg-white/5"><div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-gradient-to-tr from-teal-400 to-pink-500"></div>
+                <span id="chatbot-heading" class="font-semibold text-white">AI Guide</span>
+            </div><button id="chatbot-close-btn" class="text-indigo-300 hover:text-white focus-ring rounded-full p-1" aria-label="Close chat"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
+                <div id="chatbot-messages" aria-live="polite" class="flex-1 p-4 space-y-4 overflow-y-auto"></div>
+                <div class="p-4 border-t border-white/10">
+                    <div id="chatbot-quick-replies" class="flex flex-wrap gap-2 mb-3"></div>
+                    <input id="chatbot-input" type="text" placeholder="Ask me anything..." aria-label="Ask the portfolio assistant" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-indigo-300 focus:outline-none focus-ring">
+                </div>
+            </div>
+            <button id="chatbot-toggle" class="focus-ring" aria-label="Open AI assistant chat"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg></button>
+        </div>
+    </div>
 
-      const stageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const stageId = entry.target.id;
-            document.querySelectorAll('.nav-link').forEach(link => {
-              link.classList.toggle('active', link.getAttribute('href') === `#${stageId}`);
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const siteContent = {
+                global: {
+                    brandLine: "Deploying products + services for business outcomes.",
+                    footerLine: "© Bradley Fernandes — Applied AI & Product Execution",
+                    cvPath: "/Bradley_Fernandes_CV.pdf",
+                    email: "bradley@example.com",
+                    calendarLink: "https://cal.com/yourhandle/intro"
+                },
+                home: {
+                    headline: "Great concepts are easy. Measurable outcomes are hard.",
+                    subheadline: "I turn product ideas into revenue, savings, or risk reduction — and use AI to do it faster. See proof below or grab a quick intro."
+                },
+                framework: {
+                    title: "Execution that guarantees ROI",
+                    subtitle: "Principle → Problem → Execution (Product + Services) → Outcomes. AI multiplies speed and quality."
+                },
+                experiments: {
+                    title: "Applied Experiments (Not Startups)",
+                    intro: "Each concept shows the principle, the problem, the product + services, expected outcomes, and the AI edge. They demonstrate how I de‑risk execution."
+                },
+                about: {
+                    headline: "What you get when we work together",
+                    narrative: "I turn messy, real‑world problems into shipped solutions that move a number: revenue up, cost down, or risk reduced. I design the right product, attach the services that ensure adoption, and measure the outcome. AI is applied where it clearly multiplies value."
+                },
+                contact: {
+                    headline: "Start with a small win",
+                    copy: "Pick an experiment to tailor to your context, or send me a problem and a number you want to move. We’ll design a 2‑week pilot that proves value."
+                },
+                chatbot: {
+                    greeting: "Welcome! I'm the AI guide for this portfolio. Think of me as your co-pilot. What are you curious about?",
+                },
+                experimentsData: [
+                    { id: "clubos", title: "ClubOS", tagline: "Operating system for sports clubs", description: "Streamline scheduling and communication while unlocking sponsor revenue.", details: { for: "Sports club organizers", problemShort: "Wasted hours on admin & missed revenue", principle: "Vertical SaaS succeeds when it matches real workflows and embeds adoption into the product.", problem: "Clubs waste hours juggling schedules and messages across apps, and they miss sponsor revenue because visibility is fragmented.", execution: { product: "Integrated scheduling, team comms, and sponsor placement tools.", services: "Onboarding playbooks for club admins, sponsor activation templates, and season-start setup support." }, roi: "10+ admin hours saved per week", ai: "Automated schedule suggestions, conflict detection, and drafted announcements tailored to age group, team, and tone." } },
+                    { id: "spendsensei", title: "Spend Sensei", tagline: "AI-powered spend intelligence", description: "Catch leakage and anomalies early—make finance proactive.", details: { for: "Finance & Ops leaders", problemShort: "Leakage and anomalies spotted too late", principle: "Finance should be transparent, predictive, and actionable—built on continuous signal, not month-end surprises.", problem: "Leakage and anomalies go unnoticed until close; investigations are manual, slow, and expensive.", execution: { product: "Real-time anomaly detection, variance analysis, and drill-downs by vendor, GL, and cost center.", services: "FinOps advisory to embed alerts in rituals, training for anomaly triage, and governance templates." }, roi: "1–3% controllable spend reduction", ai: "Predictive detection on top of time series and seasonality, natural-language queries (“Why did SaaS spend spike in Q2?”), and autogenerated variance explanations." } },
+                    { id: "coffee", title: "Coffee Trading Dashboard", tagline: "Fair, transparent agri-trade", description: "Give estate owners visibility and pricing power in fragmented markets.", details: { for: "Supply chain managers", problemShort: "Lack of market visibility & buyer access", principle: "Transparency unlocks fairer value distribution in fragmented markets.", problem: "Estate owners lack live price clarity and buyer access, leading to weaker negotiations and reliance on intermediaries.", execution: { product: "Live price dashboard, buyer directory, quality/lot tracking, and deal room.", services: "Training for data capture and quality metrics, buyer matchmaking workflows, and export documentation support." }, roi: "Higher farm-gate prices", ai: "Market trend prediction by grade and region, fair-price recommendations, buyer/lot matching based on quality and history." } },
+                    { id: "learnai", title: "Learn with AI", tagline: "A new way to master anything", description: "Replace passive courses with adaptive, applied coaching.", details: { for: "HR & Enablement teams", problemShort: "Static courses don't build capability", principle: "Learning sticks when it’s active, adaptive, and immediately applied.", problem: "Static courses don’t adapt to learner context; completion doesn’t equal capability.", execution: { product: "Study mode with targeted micro-challenges and prompts, progress dashboards, and reflections.", services: "Workshops, team playbooks, and enablement sprints tied to real work." }, roi: "Faster skill acquisition", ai: "Personalized coaching, adaptive paths based on performance, instant feedback on real artifacts (docs, code, decks)." } },
+                    { id: "mentalhealth", title: "Mental Health Tech", tagline: "Journaling Meets Wearables", description: "A wellbeing companion that connects mood journaling with wearable data, giving a complete view of mental health.", details: { for: "Individuals, Employers, Providers", problemShort: "Siloed mental & physical health data", principle: "Mental health isn’t just in the mind or the body — it’s in the connection between the two.", problem: "Journaling apps capture feelings. Wearables capture stress, sleep, and movement. But they live in silos — missing the complete picture of wellbeing.", execution: { product: "Daily micro-journaling prompts, wearable sync with mood overlays, and smart insights.", services: "Optional therapist dashboard for richer, precision care." }, roi: "Self-awareness & early burnout detection", ai: "NLP interprets journal tone, pattern detection links mood with biometrics, and predictive nudges." } },
+                ],
+                cv: {
+                    hero: {
+                        headline: "Enterprise Software Execution | Design → Delivery → Adoption → Value Realisation | AI to Business Outcomes",
+                        subheadline: "Over a decade turning complex SaaS into measurable ROI. From BI pipelines to global partner ecosystems, I’ve built a career around one idea: execution is where strategy meets reality."
+                    },
+                    keyAchievements: [
+                        { value: "$12M+", label: "Influenced ARR" },
+                        { value: "35%+", label: "Avg. Time-to-Value Reduction" },
+                        { value: "75%", label: "Win Rate on AI-Enhanced Proposals" }
+                    ],
+                    timeline: [
+                        { company: "Yokoy", role: "Partner Success Manager", start: "2024", end: "Present", story: "Scaling the partner ecosystem meant giving them speed they didn’t know was possible.", impact: "35% faster time-to-value", bullets: ["Cut time-to-value by 35% with Rapid Deployment Framework", "Revamped KPIs and tooling → scaled delivery capacity", "Improved oversight across partner-led implementations"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=Y" },
+                        { company: "Qualtrics", role: "Principal Customer Success Consultant", start: "2023", end: "2024", story: "In a $7M portfolio, every executive conversation was a chance to protect value — or lose it.", impact: "$1.5M expansion, 20% satisfaction uplift", bullets: ["Managed $7M portfolio, securing $1.5M expansion", "Boosted client satisfaction by 20% with tailored plans", "Increased retention 15% through exec-aligned redesigns"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=Q" },
+                        { company: "Qualtrics", role: "Services Sales Solution Architect", start: "2019", end: "2023", story: "Winning £5M+ in services came down to one thing: making proposals smarter, not longer.", impact: "75% win rate, £5M+ revenue", bullets: ["Integrated Clarabridge AI → 75% win rate", "Generated £5M+ in revenue", "Designed bespoke delivery strategies"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=Q" },
+                        { company: "Oracle", role: "Cloud Technology Consultant", start: "2018", end: "2019", story: "The challenge wasn’t selling cloud — it was showing CIOs what transformation could feel like.", impact: "Led SaaS/PaaS workshops", bullets: ["Led SaaS/PaaS workshops & PoCs", "Trained sales + IT stakeholders"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=O" },
+                        { company: "SAP", role: "SuccessFactors Consultant", start: "2015", end: "2017", story: "In global HR rollouts, the difference between chaos and adoption is a framework you can trust.", impact: "Improved adoption with QA frameworks", bullets: ["Improved adoption with QA frameworks", "Delivered SME guidance across modules"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=S" },
+                        { company: "Capgemini", role: "Database Tech Consultant", start: "2013", end: "2014", story: "Data isn’t powerful until it’s fast, clean, and trusted — that was my first lesson in execution.", impact: "40% faster reporting cycles", bullets: ["Cut BI reporting cycle times by 40%", "Improved governance and decision accuracy"], logo: "https://placehold.co/40x40/ffffff/0a0d16?text=C" }
+                    ],
+                    skills: [
+                        { name: "Execution Expert", story: "Scaling SaaS is less about tech — more about frameworks that teams actually use.", skills: ["SaaS scaling & rollout frameworks", "Partner enablement", "Enterprise program delivery", "ROI-first frameworks"], color: 'var(--teal)' },
+                        { name: "Leadership & Coaching", story: "EQ is the multiplier: when teams trust the framework, outcomes multiply.", skills: ["C-suite alignment", "Cross-functional leadership", "Change management", "EQ-driven coaching"], color: 'var(--amber)' },
+                        { name: "AI Fluency", story: "AI is not a gimmick — it’s a lever that cuts cost, speeds delivery, and unlocks adoption.", skills: ["AI in SaaS execution", "Accelerated deployments", "AI-powered success frameworks", "Cost reduction & adoption outcomes"], color: 'var(--violet)' }
+                    ],
+                    proofPoints: [
+                        { id: "yokoy-speed", title: "Scaling Partner SaaS Execution", story: "Speed is the currency of partner ecosystems.", outcome: "35% faster time-to-value" },
+                        { id: "qualtrics-expansion", title: "Customer Success Expansion", story: "Retention is built one executive conversation at a time.", outcome: "$1.5M expansion, 20% satisfaction uplift" },
+                        { id: "qualtrics-sales", title: "AI-Enhanced Services Sales", story: "The smartest proposals win — AI just gave us the edge.", outcome: "75% win rate, £5M+ revenue" },
+                        { id: "capgemini-data", title: "Data Execution at Scale", story: "Execution starts with data that decision-makers can actually use.", outcome: "40% faster reporting, better governance" }
+                    ],
+                    outcomes: [
+                        { value: 12, label: "M+ influenced ARR", story: "Proof that execution pays." },
+                        { value: 10, label: "markets", story: "Impact doesn’t scale unless execution does." },
+                        { value: 35, label: "%+ avg. TTV reduction", story: "Every week saved compounds value." },
+                        { value: 50, label: "+ enterprise clients", story: "Trust is earned by execution, not slides." },
+                        { value: 200, label: "+ coached & trained", story: "Frameworks live on in people, not decks." }
+                    ],
+                    future: {
+                        statement: "The next decade of SaaS execution will belong to leaders who combine frameworks with AI acceleration. That’s where I play.",
+                        focus: ["Scaling enterprise SaaS execution globally", "Embedding AI accelerators", "ROI-first frameworks", "EQ-driven leadership"]
+                    }
+                }
+            };
+            
+            const ChevronRightIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 h-5 w-5 text-indigo-400"><path d="m9 18 6-6-6-6"/></svg>`;
+            // Fixed XIcon: removed stray 24"
+            const XIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
+            // --- Page Router ---
+            const pageHome = document.getElementById('page-home');
+            const pageCv = document.getElementById('page-cv');
+            const pageLinks = document.querySelectorAll('.page-link');
+
+            // improved showPage syncs history and hash
+            const showPage = (pageId, push = true) => {
+                window.scrollTo(0, 0);
+                if (pageId === 'home') {
+                    pageHome.classList.remove('hidden');
+                    pageCv.classList.add('hidden');
+                } else if (pageId === 'cv') {
+                    pageHome.classList.add('hidden');
+                    pageCv.classList.remove('hidden');
+                    // move focus to the CV page's headline for accessibility
+                    const cvHeadline = document.getElementById('cv-headline');
+                    if (cvHeadline) {
+                        cvHeadline.focus();
+                    }
+                }
+                if (push) {
+                    const hash = pageId === 'home' ? '#' : '#cv';
+                    history.pushState({ page: pageId }, '', hash);
+                }
+            };
+
+            // handle popstate for back/forward
+            window.addEventListener('popstate', (e) => {
+                const page = (e.state && e.state.page) || (location.hash === '#cv' ? 'cv' : 'home');
+                showPage(page, false);
             });
 
-            const stageIndex = Array.from(stages).indexOf(entry.target);
-            stages.forEach((stage, index) => stage.classList.toggle('active', index === stageIndex));
+            // initial boot: reflect hash
+            showPage(location.hash === '#cv' ? 'cv' : 'home', false);
 
-            const scrollY = window.scrollY;
-            const stageHeight = window.innerHeight;
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const pageId = e.currentTarget.dataset.page;
+                    if (pageId) {
+                        e.preventDefault();
+                        showPage(pageId);
+                    }
+                });
+            });
 
-            const stage1Progress = Math.min(1, scrollY / stageHeight);
-            orb.targetRadius = 5 + stage1Progress * 150;
+            // --- Home Page Logic ---
+            const initHomePage = () => {
+                // assign global text
+                document.getElementById('experiments-title').textContent = siteContent.experiments.title;
+                document.getElementById('experiments-intro').textContent = siteContent.experiments.intro;
+                document.getElementById('framework-title').textContent = siteContent.framework.title;
+                document.getElementById('framework-subtitle').textContent = siteContent.framework.subtitle;
+                document.getElementById('about-headline').textContent = siteContent.about.headline;
+                document.getElementById('about-narrative').textContent = siteContent.about.narrative;
+                document.getElementById('contact-headline').textContent = siteContent.contact.headline;
+                document.getElementById('contact-copy').textContent = siteContent.contact.copy;
+                document.querySelector('#page-home #footer-line').textContent = siteContent.global.footerLine;
+                document.title = "Bradley Fernandes — Digital Product Execution";
+                // Fill hero outcomes strip
+                document.getElementById('hero-outcomes-strip').innerHTML = `
+                    <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Time‑to‑value ↓</span>
+                    <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Adoption ↑</span>
+                    <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Opex ↓</span>
+                    <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1">Audit readiness ↑</span>
+                `;
+                document.getElementById('social-proof-bar').innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">10–15 hrs</div><div class="text-sm text-indigo-300">Admin time saved / club / week*</div></div>
+                        <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">1–3%</div><div class="text-sm text-indigo-300">Controllable spend reduction</div></div>
+                        <div class="rounded-xl border border-white/20 bg-white/5 p-4 text-center"><div class="text-2xl font-semibold text-white">Early Detection</div><div class="text-sm text-indigo-300">Proactive wellbeing insights</div></div>
+                    </div>
+                    <p class="mt-2 text-[11px] text-indigo-400/80 text-center">*Modeled results; project-dependent.</p>
+                `;
+                document.getElementById('contact-ctas').innerHTML = `
+                    <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-4 py-2 rounded-full focus-ring">Book intro on LinkedIn</a>
+                `;
+                // Canvas animation
+                const canvas = document.getElementById('story-canvas');
+                const ctx = canvas.getContext('2d');
+                const stages = document.querySelectorAll('#page-home .story-stage');
+                let width, height;
+                let orb = { x: 0, y: 0, radius: 0, targetRadius: 5 };
+                let particles = [];
+                let lines = [];
+                let animateId;
+                function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; orb.x = width / 2; orb.y = height / 2; }
+                function createParticles() { particles = []; let density = window.innerWidth < 768 ? 25 : 50; for (let i = 0; i < density; i++) { particles.push({ x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 1.5, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, }); } }
+                function safeRect(el){ const r = el?.getBoundingClientRect?.(); return r && r.width && r.height ? r : null; }
+                function animate() {
+                    if (document.documentElement.dataset.motion === 'reduce') return;
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > width) p.vx *= -1; if (p.y < 0 || p.y > height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(20, 198, 166, 0.3)'; ctx.fill(); });
+                    orb.radius += (orb.targetRadius - orb.radius) * 0.08;
+                    ctx.beginPath(); ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2); const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius); gradient.addColorStop(0, 'rgba(20, 198, 166, 0.8)'); gradient.addColorStop(1, 'rgba(122, 90, 248, 0)'); ctx.fillStyle = gradient; ctx.fill();
+                    lines.forEach(line => { ctx.beginPath(); ctx.moveTo(line.x1, line.y1); ctx.lineTo(line.x2, line.y2); ctx.strokeStyle = `rgba(20, 198, 166, ${line.opacity})`; ctx.lineWidth = 1; ctx.stroke(); });
+                    animateId = requestAnimationFrame(animate);
+                }
+                // pause animation when page hidden
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        cancelAnimationFrame(animateId);
+                    } else {
+                        animateId = requestAnimationFrame(animate);
+                    }
+                });
+                const stageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const stageId = entry.target.id;
+                            document.querySelectorAll('#page-home .nav-link').forEach(link => {
+                                link.classList.toggle('active', link.getAttribute('href') === `#${stageId}`);
+                            });
+                            const stageIndex = Array.from(stages).indexOf(entry.target);
+                            stages.forEach((stage, index) => stage.classList.toggle('active', index === stageIndex));
+                            const scrollY = window.scrollY;
+                            const stageHeight = window.innerHeight;
+                            const stage1Progress = Math.min(1, scrollY / stageHeight);
+                            orb.targetRadius = 5 + stage1Progress * 150;
+                            const stage2Start = stageHeight;
+                            const stage2Progress = Math.max(0, Math.min(1, (scrollY - stage2Start) / stageHeight));
+                            lines = [];
+                            if (stage2Progress > 0.1) {
+                                const n1 = safeRect(document.getElementById('node-1'));
+                                const n2 = safeRect(document.getElementById('node-2'));
+                                const n3 = safeRect(document.getElementById('node-3'));
+                                if (n1 && n2 && n3) {
+                                    lines.push({ x1: width/2, y1: height/2, x2: n1.left + n1.width/2, y2: n1.top + n1.height/2, opacity: Math.min(0.5, stage2Progress) });
+                                    lines.push({ x1: width/2, y1: height/2, x2: n2.left + n2.width/2, y2: n2.top + n2.height/2, opacity: Math.min(0.5, stage2Progress) });
+                                    lines.push({ x1: width/2, y1: height/2, x2: n3.left + n3.width/2, y2: n3.top + n3.height/2, opacity: Math.min(0.5, stage2Progress) });
+                                }
+                            }
+                            const stage3Start = stageHeight * 2;
+                            const stage3Progress = Math.max(0, (scrollY - stage3Start) / (stageHeight / 2));
+                            canvas.style.opacity = Math.max(0, 1 - stage3Progress);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                stages.forEach(stage => stageObserver.observe(stage));
+                window.addEventListener('resize', () => { resize(); createParticles(); });
+                resize(); createParticles(); animate();
+                const tooltip = document.getElementById('framework-tooltip');
+                document.querySelectorAll('#page-home .framework-svg g').forEach(el => {
+                    // Add keyboard accessibility
+                    el.setAttribute('tabindex', '0');
+                    // give each node an accessible name based on its tooltip
+                    if (el.dataset && el.dataset.tooltip) {
+                        el.setAttribute('aria-label', el.dataset.tooltip);
+                    }
+                    const showTip = (text, x, y) => {
+                        if (!text) return;
+                        tooltip.textContent = text;
+                        tooltip.style.opacity = '1';
+                        tooltip.style.left = `${x}px`;
+                        tooltip.style.top = `${y}px`;
+                    };
+                    el.addEventListener('mouseenter', (e) => {
+                        const text = e.currentTarget.dataset.tooltip;
+                        showTip(text, e.clientX + 15, e.clientY);
+                    });
+                    el.addEventListener('mousemove', (e) => {
+                        const text = e.currentTarget.dataset.tooltip;
+                        showTip(text, e.clientX + 15, e.clientY);
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        tooltip.style.opacity = '0';
+                    });
+                    el.addEventListener('focus', (e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        showTip(e.currentTarget.dataset.tooltip, rect.left + rect.width/2, rect.top - 8);
+                    });
+                    el.addEventListener('blur', () => {
+                        tooltip.style.opacity = '0';
+                    });
+                });
+                const cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const cards = entry.target.querySelectorAll('.experiment-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 150);
+                            });
+                            cardObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                cardObserver.observe(document.getElementById('experiment-grid-container'));
+                const gridContainer = document.getElementById('experiment-grid-container');
+                const modalContainer = document.getElementById('modal-container');
+                function renderGrid() {
+                     gridContainer.innerHTML = siteContent.experimentsData.map(ex => `<button data-id="${ex.id}" class="experiment-card card text-left p-5"><div class="flex items-start justify-between gap-3"><div><h4 class="text-lg font-semibold">${ex.title}</h4><p class="mt-1 text-xs uppercase tracking-wide text-indigo-300/90">${ex.tagline}</p></div>${ChevronRightIcon}</div><ul class="mt-3 space-y-1 text-[13px] text-indigo-100/90"><li>• For: ${ex.details?.for ?? "Ops/Finance/IT leaders"}</li><li>• Fixes: ${ex.details?.problemShort ?? ex.details.problem}</li><li>• Outcome: ${ex.details?.roi}</li></ul></button>`).join('');
+                }
+                gridContainer.addEventListener('click', (e) => { const card = e.target.closest('.experiment-card'); if (card) { openStoryModal(siteContent.experimentsData.find(ex => ex.id === card.dataset.id)); } });
+                
+                function showMessageBox(message) {
+                    const container = document.getElementById('message-box-container');
+                    const box = document.createElement('div');
+                    box.className = 'message-box';
+                    box.innerHTML = `<div class="glowing-card p-8 text-center max-w-sm text-white"><p>${message}</p><button class="mt-4 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20">Close</button></div>`;
+                    container.appendChild(box);
+                    setTimeout(() => box.classList.add('active'), 10);
+                    box.querySelector('button').addEventListener('click', () => {
+                        box.classList.remove('active');
+                        setTimeout(() => container.innerHTML = '', 300);
+                    });
+                }
 
-            const stage2Start = stageHeight;
-            const stage2Progress = Math.max(0, Math.min(1, (scrollY - stage2Start) / stageHeight));
-            lines = [];
-            if (stage2Progress > 0.1) {
-              const node1 = document.getElementById('node-1').getBoundingClientRect();
-              const node2 = document.getElementById('node-2').getBoundingClientRect();
-              const node3 = document.getElementById('node-3').getBoundingClientRect();
-              lines.push({ x1: width/2, y1: height/2, x2: node1.left + node1.width/2, y2: node1.top + node1.height/2, opacity: Math.min(0.5, stage2Progress) });
-              lines.push({ x1: width/2, y1: height/2, x2: node2.left + node2.width/2, y2: node2.top + node2.height/2, opacity: Math.min(0.5, stage2Progress) });
-              lines.push({ x1: width/2, y1: height/2, x2: node3.left + node3.width/2, y2: node3.top + node3.height/2, opacity: Math.min(0.5, stage2Progress) });
+                function trapFocus(modal) {
+                    const focusables = modal.querySelectorAll(
+                        'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+                    );
+                    const first = focusables[0], last = focusables[focusables.length - 1];
+                    function cycle(e){
+                        if (e.key !== 'Tab') return;
+                        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                    }
+                    modal.addEventListener('keydown', cycle);
+                    return () => modal.removeEventListener('keydown', cycle);
+                }
+
+                function openStoryModal(ex) {
+                    modalContainer.innerHTML = `<div id="story-modal" class="story-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div id="story-background" class="story-background"></div><div class="grid-lines"></div><div id="ai-orb" class="ai-orb" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);"></div><button id="modal-close-btn" class="absolute top-6 right-6 text-white/70 hover:text-white z-20 focus-ring rounded-full p-1">${XIcon}</button><div class="story-step" data-step="1"><h2 id="modal-title" class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 1s;">${ex.details.principle}</h2></div><div class="story-step" data-step="2"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">Problem</p><p class="text-xl md:text-2xl mt-2">${ex.details.problem}</p></div></div><div class="story-step" data-step="3"><div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl items-center justify-center"><div class="flip-card-container story-element w-full md:w-1/2 h-64" style="transition-delay: 0.2s;"><div class="flip-card w-full h-full"><div class="flip-card-front glowing-card p-6 flex flex-col justify-center items-center text-center"><p class="text-sm uppercase tracking-widest text-teal-300">Product</p><p class="text-lg mt-2">${ex.details.execution.product}</p></div><div class="flip-card-back glowing-card p-6 flex flex-col justify-center items-center text-center"><p class="text-sm uppercase tracking-widest text-violet-300">Services</p><p class="text-lg mt-2">${ex.details.execution.services}</p></div></div></div></div><button id="view-prototype-btn" class="story-element absolute bottom-12 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm focus-ring" style="transition-delay: 0.5s;">View Prototype</button></div><div class="story-step" data-step="4"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">Outcomes / ROI</p><p class="text-xl md:text-2xl mt-2">${ex.details.roi}</p></div></div><div class="story-step" data-step="5"><div class="story-element glowing-card p-8 text-center max-w-md"><p class="text-sm uppercase tracking-widest text-teal-300">AI Edge</p><p class="text-xl md:text-2xl mt-2">${ex.details.ai}</p></div></div><div class="story-step" data-step="6"><p class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 0.2s;">This concept shows how I design and deploy products + services for measurable business outcomes.</p><div class="story-element mt-8 flex gap-4" style="transition-delay: 0.5s;"><button id="see-another-btn" class="px-5 py-3 rounded-full border border-violet-500/30 text-indigo-100 hover:bg-violet-500/10 focus-ring">See Another Experiment</button><a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a 20-min intro</a></div></div><button id="story-next-btn" class="absolute bottom-6 left-6 px-4 py-2 rounded-full bg-white/10 text-white/80 hover:bg-white/20 z-20 backdrop-blur-sm focus-ring">Next</button></div>`;
+                    const modal = document.getElementById('story-modal');
+                    // ensure close button has an accessible name
+                    const closeBtnEl = modal.querySelector('#modal-close-btn');
+                    if (closeBtnEl) {
+                        closeBtnEl.setAttribute('aria-label', 'Close modal');
+                    }
+                    const root = document.getElementById('app-container');
+                    // hide background from screen readers
+                    root.setAttribute('aria-hidden', 'true');
+                    modal.setAttribute('aria-hidden', 'false');
+                    // trap focus inside modal
+                    const untrap = trapFocus(modal);
+                    // esc key to close
+                    function escClose(e){ if (e.key === 'Escape') closeModal(); }
+                    document.addEventListener('keydown', escClose);
+                    const closeModal = () => {
+                        modal.classList.remove('active');
+                        setTimeout(() => {
+                            modalContainer.innerHTML = '';
+                            root.removeAttribute('aria-hidden');
+                            document.removeEventListener('keydown', escClose);
+                            untrap();
+                        }, 500);
+                    };
+                    const background = document.getElementById('story-background');
+                    background.className = 'story-background';
+                    background.classList.add(`bg-${ex.id}`);
+                    const orb = document.getElementById('ai-orb');
+                    const steps = modal.querySelectorAll('.story-step');
+                    const nextBtn = document.getElementById('story-next-btn');
+                    let currentStep = 0;
+                    const goToStep = (stepIndex) => {
+                        currentStep = stepIndex;
+                        modal.className = 'story-modal active';
+                        modal.classList.add(`step-${stepIndex}-active`);
+                        steps.forEach((step, i) => { step.classList.toggle('active', i + 1 === stepIndex); });
+                        if (stepIndex === 1) {
+                            orb.style.transform = 'translate(-50%, -50%) scale(1)';
+                            orb.style.top = '15%';
+                            orb.style.left = '50%';
+                        }
+                        if (stepIndex === 3) {
+                            const flipCard = modal.querySelector('.flip-card-container');
+                            setTimeout(() => flipCard.classList.add('flipped'), 2000);
+                            setTimeout(() => flipCard.classList.remove('flipped'), 4000);
+                        }
+                        nextBtn.style.display = stepIndex === steps.length ? 'none' : 'block';
+                    };
+                    setTimeout(() => { modal.classList.add('active'); setTimeout(() => goToStep(1), 500); }, 100);
+                    nextBtn.addEventListener('click', () => { if (currentStep < steps.length) { goToStep(currentStep + 1); } });
+                    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+                    document.getElementById('see-another-btn').addEventListener('click', closeModal);
+                    document.getElementById('view-prototype-btn').addEventListener('click', () => {
+                        showMessageBox("Work in Progress: Connect with me on Linkedin to see more");
+                    });
+                    // set initial focus to close button for accessibility
+                    document.getElementById('modal-close-btn').focus();
+                }
+                renderGrid();
+            };
+
+            // --- CV Page Logic ---
+            const initCvPage = () => {
+                const cvData = siteContent.cv;
+                document.querySelector('#page-cv #cv-headline').textContent = cvData.hero.headline;
+                document.querySelector('#page-cv #cv-subheadline').textContent = cvData.hero.subheadline;
+                document.querySelector('#page-cv #cv-download-cta').href = siteContent.global.cvPath;
+                document.querySelector('#page-cv #cv-footer-line').textContent = siteContent.global.footerLine;
+                
+                document.querySelector('#page-cv #achievements-grid').innerHTML = cvData.keyAchievements.map(a => `
+                    <div>
+                        <p class="text-2xl font-bold text-white">${a.value}</p>
+                        <p class="text-sm text-indigo-300">${a.label}</p>
+                    </div>
+                `).join('');
+
+                const desktopTimeline = document.querySelector('#page-cv .desktop-timeline .timeline-container');
+                const mobileTimeline = document.querySelector('#page-cv .mobile-timeline');
+                desktopTimeline.innerHTML = cvData.timeline.map(node => `
+                    <div class="timeline-node glass-card rounded-xl p-6 w-80 md:w-96 flex-shrink-0 snap-center">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-white text-lg">${node.company}</h3>
+                            <img src="${node.logo}" alt="${node.company} logo" class="h-8 w-8 rounded-full" loading="lazy" width="32" height="32">
+                        </div>
+                        <p class="text-sm font-semibold text-indigo-300">${node.role} (${node.start}–${node.end || 'Present'})</p>
+                        <p class="text-sm italic text-indigo-100/80 my-3">“${node.story}”</p>
+                        <ul class="text-sm space-y-1 text-indigo-200">${node.bullets.map(b => `<li>• ${b}</li>`).join('')}</ul>
+                    </div>
+                `).join('');
+                
+                mobileTimeline.innerHTML = cvData.timeline.map(node => `
+                    <div class="timeline-accordion-item glass-card rounded-xl">
+                        <details>
+                            <summary class="p-4 cursor-pointer flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-white text-lg">${node.company}</h3>
+                                    <p class="text-sm font-semibold text-indigo-300">${node.role}</p>
+                                </div>
+                                <span aria-hidden="true">▼</span>
+                            </summary>
+                            <div class="p-4 border-t border-white/10">
+                                <p class="text-sm italic text-indigo-100/80 my-3">“${node.story}”</p>
+                                <ul class="text-sm space-y-1 text-indigo-200">${node.bullets.map(b => `<li>• ${b}</li>`).join('')}</ul>
+                            </div>
+                        </details>
+                    </div>
+                `).join('');
+
+                document.querySelector('#page-cv #skills-grid').innerHTML = cvData.skills.map(group => `
+                    <div class="skill-card glass-card rounded-xl p-6" style="--glow-color: ${group.color};">
+                        <div class="halo"></div>
+                        <h3 class="text-xl font-bold text-white">${group.name}</h3>
+                        <p class="text-sm text-indigo-200 italic my-2">“${group.story}”</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            ${group.skills.map(skill => `<span class="text-xs bg-white/5 text-indigo-200 px-2 py-1 rounded-full">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                document.querySelector('#page-cv #proof-grid').innerHTML = cvData.proofPoints.map(p => `
+                    <div class="proof-card h-48 rounded-xl relative cursor-pointer group focus-ring" tabindex="0">
+                        <div class="proof-card-inner w-full h-full absolute">
+                            <div class="proof-card-front glass-card w-full h-full flex flex-col justify-center items-center p-4 text-center">
+                                <p class="text-sm text-indigo-200 italic">“${p.story}”</p>
+                            </div>
+                            <div class="proof-card-back glass-card w-full h-full flex flex-col justify-center items-center p-4 text-center bg-teal-500/10">
+                                <p class="text-xs uppercase tracking-wider text-teal-300">Outcome</p>
+                                <p class="text-xl font-bold text-white mt-2">${p.outcome}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.querySelector('#page-cv #outcomes-grid').innerHTML = cvData.outcomes.map(o => `
+                    <div class="glass-card rounded-xl p-4 text-center">
+                        <p class="text-3xl font-bold text-white" data-target="${o.value}">${o.value.toString().includes('+') ? 0 : o.value}</p>
+                        <p class="text-sm text-indigo-300 uppercase tracking-wider">${o.label}</p>
+                    </div>
+                `).join('');
+
+                document.querySelector('#page-cv #future-statement').textContent = cvData.future.statement;
+                document.querySelector('#page-cv #prism').innerHTML = cvData.future.focus.map((f, i) => 
+                    `<div class="prism-face prism-face-${i+1}">${f}</div>`
+                ).join('');
+                // Provide screen readers a summary of prism keywords
+                const prismContainer = document.querySelector('#page-cv #prism-container');
+                if (prismContainer) {
+                    prismContainer.setAttribute('aria-label', 'Future focus areas: ' + cvData.future.focus.join(', '));
+                }
+            };
+
+            // --- Global Logic ---
+            initHomePage();
+            initCvPage();
+            
+            // --- AI Chatbot Logic ---
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');
+            let chatbotMounted = false;
+
+            const mountChatbot = () => {
+                if (chatbotMounted) return;
+                chatbotQuickReplies.innerHTML = ['Recruiter', 'Investor', 'Collaborator', 'Okta + AI'].map(reply => 
+                    `<button class="px-3 py-1 text-sm rounded-full border border-white/20 text-indigo-100 hover:bg-white/10 focus-ring">${reply}</button>`
+                ).join('');
+                chatbotMounted = true;
+                setTimeout(() => { 
+                    if (siteContent.chatbot && siteContent.chatbot.greeting) {
+                        addMessage('ai', siteContent.chatbot.greeting); 
+                    }
+                }, 500);
+            };
+
+            const toggleChatbot = (isOpen) => { 
+                if (isOpen) { 
+                    mountChatbot();
+                    chatbotWindow.classList.remove('hidden'); 
+                    setTimeout(() => { chatbotWindow.classList.remove('opacity-0', 'scale-95'); }, 10); 
+                    // set focus to the chatbot input when opening for keyboard users
+                    setTimeout(() => { chatbotInput && chatbotInput.focus(); }, 50);
+                } else { 
+                    chatbotWindow.classList.add('opacity-0', 'scale-95'); 
+                    setTimeout(() => { chatbotWindow.classList.add('hidden'); }, 300); 
+                } 
+            };
+            chatbotToggle.addEventListener('click', () => toggleChatbot(true));
+            chatbotCloseBtn.addEventListener('click', () => toggleChatbot(false));
+            
+            const addMessage = (sender, text, isThinking = false) => {
+                const messageEl = document.createElement('div');
+                if (sender === 'user') {
+                    messageEl.className = 'ml-auto max-w-[80%] bg-gradient-to-br from-teal-500 to-violet-600 text-white rounded-xl rounded-br-lg p-3 text-sm';
+                    messageEl.textContent = text;
+                } else if (isThinking) {
+                    messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
+                    messageEl.id = 'thinking-bubble';
+                    messageEl.innerHTML = `<div class="thinking-bubble"><span></span><span></span><span></span></div>`;
+                } else {
+                    messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
+                    messageEl.innerHTML = text.replace(/\n/g, '<br>'); // Support newlines
+                }
+                chatbotMessages.appendChild(messageEl);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            };
+
+            const intents = [
+              {key:'recruiter', test:/recruit|cv|resume|résumé|hire/i, reply:'Here’s the fast lane for recruiters: background → highlights → CV download.', actions:['#about','/Bradley_Fernandes_CV.pdf']},
+              {key:'investor', test:/invest|roi|traction|market/i, reply:'ROI snapshots and experiments most relevant to investors.', actions:['#stage-3','#stage-4']},
+              {key:'collab', test:/partner|collab|together|freelance|contract/i, reply:'Let’s scope a small win: pick an experiment and we’ll tailor it.', actions:['#stage-3','#contact']},
+              {key:'okta', test:/okta|iam|identity/i, reply:'Identity + AI overview and outcomes.', actions:['#stage-3','#stage-4']},
+            ];
+
+            function getAiResponse(q){
+              for (const i of intents) if (i.test.test(q)) {
+                return `${i.reply}\n\n• Open: ${i.actions.join('  →  ')}`;
+              }
+              if (/framework|method|how/i.test(q)) return "Method in one line: Principle → Problem → Execution (Product + Services) → Outcomes, with AI as a multiplier.";
+              return "Tell me if you’re a recruiter, investor, or collaborator — I’ll guide you to the right section in one click.";
             }
 
-            const stage3Start = stageHeight * 2;
-            const stage3Progress = Math.max(0, (scrollY - stage3Start) / (stageHeight / 2));
-            canvas.style.opacity = Math.max(0, 1 - stage3Progress);
-          }
-        });
-      }, { threshold: 0.5 });
+            const processUserMessage = (userMessage) => {
+                addMessage('user', userMessage);
+                chatbotInput.value = '';
+                addMessage('ai', '', true);
 
-      stages.forEach(stage => stageObserver.observe(stage));
-      window.addEventListener('resize', () => { resize(); createParticles(); });
-      resize(); createParticles(); animate();
+                setTimeout(() => {
+                    const thinkingBubble = document.getElementById('thinking-bubble');
+                    if (thinkingBubble) thinkingBubble.remove();
+                    const aiResponse = getAiResponse(userMessage);
+                    addMessage('ai', aiResponse);
+                }, 1200);
+            };
 
-      // --- Interactive Framework (FIX: ensure listeners are inside the forEach block) ---
-      const tooltip = document.getElementById('framework-tooltip');
-      document.querySelectorAll('.framework-svg g').forEach((el) => {
-        el.addEventListener('mouseenter', (e) => {
-          const text = e.currentTarget.dataset.tooltip;
-          if (!text) return;
-          tooltip.textContent = text;
-          tooltip.style.opacity = '1';
-        });
-        el.addEventListener('mouseleave', () => {
-          tooltip.style.opacity = '0';
-        });
-        el.addEventListener('mousemove', (e) => {
-          tooltip.style.left = `${e.clientX + 15}px`;
-          tooltip.style.top = `${e.clientY}px`;
-        });
-      });
-
-      // --- Staggered Card Animation ---
-      const cardObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const cards = entry.target.querySelectorAll('.experiment-card');
-            cards.forEach((card, index) => {
-              setTimeout(() => { card.classList.add('visible'); }, index * 150);
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && chatbotInput.value.trim() !== '') {
+                    processUserMessage(chatbotInput.value.trim());
+                }
             });
-            cardObserver.unobserve(entry.target);
-          }
+            chatbotQuickReplies.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    processUserMessage(e.target.textContent);
+                }
+            });
         });
-      }, { threshold: 0.1 });
-
-      cardObserver.observe(document.getElementById('experiment-grid-container'));
-
-      // --- Experiment Grid & Modal Logic ---
-      const gridContainer = document.getElementById('experiment-grid-container');
-      const modalContainer = document.getElementById('modal-container');
-
-      function renderGrid() {
-        gridContainer.innerHTML = siteContent.experimentsData.map(ex => `
-          <button data-id="${ex.id}" class="experiment-card card text-left p-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <h4 class="text-lg font-semibold">${ex.title}</h4>
-                <p class="mt-1 text-xs uppercase tracking-wide text-indigo-300/90">${ex.tagline}</p>
-              </div>${ChevronRightIcon}
-            </div>
-            <ul class="mt-3 space-y-1 text-[13px] text-indigo-100/90">
-              <li>• For: ${ex.details?.for ?? "Ops/Finance/IT leaders"}</li>
-              <li>• Fixes: ${ex.details?.problemShort ?? ex.details.problem}</li>
-              <li>• Outcome: ${ex.details?.roi}</li>
-            </ul>
-          </button>`).join('');
-      }
-
-      gridContainer.addEventListener('click', (e) => {
-        const card = e.target.closest('.experiment-card');
-        if (card) { openStoryModal(siteContent.experimentsData.find(ex => ex.id === card.dataset.id)); }
-      });
-
-      function showMessageBox(message) {
-        const container = document.getElementById('message-box-container');
-        const box = document.createElement('div');
-        box.className = 'message-box';
-        box.innerHTML = `
-          <div class="glowing-card p-8 text-center max-w-sm text-white">
-            <p>${message}</p>
-            <button class="mt-4 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20">Close</button>
-          </div>`;
-        container.appendChild(box);
-        setTimeout(() => box.classList.add('active'), 10);
-        box.querySelector('button').addEventListener('click', () => {
-          box.classList.remove('active');
-          setTimeout(() => container.innerHTML = '', 300);
-        });
-      }
-
-      function openStoryModal(ex) {
-        modalContainer.innerHTML = `
-          <div id="story-modal" class="story-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <div id="story-background" class="story-background"></div>
-            <div class="grid-lines"></div>
-            <div id="ai-orb" class="ai-orb" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);"></div>
-            <button id="modal-close-btn" class="absolute top-6 right-6 text-white/70 hover:text-white z-20 focus-ring rounded-full p-1" aria-label="Close modal">${XIcon}</button>
-
-            <div class="story-step" data-step="1">
-              <h2 id="modal-title" class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: 1s;">${ex.details.principle}</h2>
-            </div>
-
-            <div class="story-step" data-step="2">
-              <div class="story-element glowing-card p-8 text-center max-w-md">
-                <p class="text-sm uppercase tracking-widest text-teal-300">Problem</p>
-                <p class="text-xl md:text-2xl mt-2">${ex.details.problem}</p>
-              </div>
-            </div>
-
-            <div class="story-step" data-step="3">
-              <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl items-center justify-center">
-                <div class="flip-card-container story-element w-full md:w-1/2 h-64" style="transition-delay: .2s;">
-                  <div class="flip-card w-full h-full">
-                    <div class="flip-card-front glowing-card p-6 flex flex-col justify-center items-center text-center">
-                      <p class="text-sm uppercase tracking-widest text-teal-300">Product</p>
-                      <p class="text-lg mt-2">${ex.details.execution.product}</p>
-                    </div>
-                    <div class="flip-card-back glowing-card p-6 flex flex-col justify-center items-center text-center">
-                      <p class="text-sm uppercase tracking-widest text-violet-300">Services</p>
-                      <p class="text-lg mt-2">${ex.details.execution.services}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button id="view-prototype-btn" class="story-element absolute bottom-12 px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm focus-ring" style="transition-delay: .5s;">View Prototype</button>
-            </div>
-
-            <div class="story-step" data-step="4">
-              <div class="story-element glowing-card p-8 text-center max-w-md">
-                <p class="text-sm uppercase tracking-widest text-teal-300">Outcomes / ROI</p>
-                <p class="text-xl md:text-2xl mt-2">${ex.details.roi}</p>
-              </div>
-            </div>
-
-            <div class="story-step" data-step="5">
-              <div class="story-element glowing-card p-8 text-center max-w-md">
-                <p class="text-sm uppercase tracking-widest text-teal-300">AI Edge</p>
-                <p class="text-xl md:text-2xl mt-2">${ex.details.ai}</p>
-              </div>
-            </div>
-
-            <div class="story-step" data-step="6">
-              <p class="story-element text-2xl md:text-3xl max-w-2xl text-center text-indigo-100" style="transition-delay: .2s;">
-                This concept shows how I design and deploy products + services for measurable business outcomes.
-              </p>
-              <div class="story-element mt-8 flex gap-4" style="transition-delay: .5s;">
-                <button id="see-another-btn" class="px-5 py-3 rounded-full border border-violet-500/30 text-indigo-100 hover:bg-violet-500/10 focus-ring">See Another Experiment</button>
-                <a href="https://www.linkedin.com/in/bradley-fernandes/" target="_blank" rel="noopener noreferrer" class="cta-primary px-5 py-3 rounded-full shadow-lg hover:scale-105 transition-transform focus-ring">Book a 20-min intro</a>
-              </div>
-            </div>
-
-            <button id="story-next-btn" class="absolute bottom-6 left-6 px-4 py-2 rounded-full bg-white/10 text-white/80 hover:bg-white/20 z-20 backdrop-blur-sm focus-ring">Next</button>
-          </div>
-        `;
-
-        const modal = document.getElementById('story-modal');
-        const closeModal = () => {
-          modal.classList.remove('active');
-          setTimeout(() => modalContainer.innerHTML = '', 500);
-        };
-
-        const background = document.getElementById('story-background');
-        background.className = 'story-background';
-        background.classList.add(`bg-${ex.id}`);
-
-        const orbEl = document.getElementById('ai-orb');
-        const steps = modal.querySelectorAll('.story-step');
-        const nextBtn = document.getElementById('story-next-btn');
-        let currentStep = 0;
-
-        const goToStep = (stepIndex) => {
-          currentStep = stepIndex;
-          modal.className = 'story-modal active';
-          modal.classList.add(`step-${stepIndex}-active`);
-          steps.forEach((step, i) => step.classList.toggle('active', i + 1 === stepIndex));
-          if (stepIndex === 1) {
-            orbEl.style.transform = 'translate(-50%, -50%) scale(1)';
-            orbEl.style.top = '15%';
-            orbEl.style.left = '50%';
-          }
-          if (stepIndex === 3) {
-            const flipCard = modal.querySelector('.flip-card-container');
-            setTimeout(() => flipCard.classList.add('flipped'), 2000);
-            setTimeout(() => flipCard.classList.remove('flipped'), 4000);
-          }
-          nextBtn.style.display = stepIndex === steps.length ? 'none' : 'block';
-        };
-
-        setTimeout(() => { modal.classList.add('active'); setTimeout(() => goToStep(1), 500); }, 100);
-
-        nextBtn.addEventListener('click', () => { if (currentStep < steps.length) goToStep(currentStep + 1); });
-        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
-        document.getElementById('see-another-btn').addEventListener('click', closeModal);
-        document.getElementById('view-prototype-btn').addEventListener('click', () => {
-          showMessageBox("Work in Progress: Connect with me on Linkedin to see more");
-        });
-      }
-
-      renderGrid();
-
-      // --- AI Chatbot Logic ---
-      const chatbotWindow = document.getElementById('chatbot-window');
-      const chatbotToggle = document.getElementById('chatbot-toggle');
-      const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
-      const chatbotMessages = document.getElementById('chatbot-messages');
-      const chatbotInput = document.getElementById('chatbot-input');
-      const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');
-      let chatbotMounted = false;
-
-      const mountChatbot = () => {
-        if (chatbotMounted) return;
-        chatbotQuickReplies.innerHTML = ['Recruiter', 'Investor', 'Collaborator', 'Okta + AI']
-          .map(reply => `<button class="px-3 py-1 text-sm rounded-full border border-white/20 text-indigo-100 hover:bg-white/10 focus-ring">${reply}</button>`)
-          .join('');
-        chatbotMounted = true;
-        setTimeout(() => {
-          if (siteContent.chatbot && siteContent.chatbot.greeting) {
-            addMessage('ai', siteContent.chatbot.greeting);
-          }
-        }, 500);
-      };
-
-      const toggleChatbot = (isOpen) => {
-        if (isOpen) {
-          mountChatbot();
-          chatbotWindow.classList.remove('hidden');
-          chatbotToggle.setAttribute('aria-expanded', 'true');
-          setTimeout(() => { chatbotWindow.classList.remove('opacity-0', 'scale-95'); }, 10);
-        } else {
-          chatbotWindow.classList.add('opacity-0', 'scale-95');
-          chatbotToggle.setAttribute('aria-expanded', 'false');
-          setTimeout(() => { chatbotWindow.classList.add('hidden'); }, 300);
-        }
-      };
-      chatbotToggle.addEventListener('click', () => toggleChatbot(true));
-      chatbotCloseBtn.addEventListener('click', () => toggleChatbot(false));
-
-      const addMessage = (sender, text, isThinking = false) => {
-        const messageEl = document.createElement('div');
-        if (sender === 'user') {
-          messageEl.className = 'ml-auto max-w-[80%] bg-gradient-to-br from-teal-500 to-violet-600 text-white rounded-xl rounded-br-lg p-3 text-sm';
-          messageEl.textContent = text;
-        } else if (isThinking) {
-          messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
-          messageEl.id = 'thinking-bubble';
-          messageEl.innerHTML = `<div class="thinking-bubble"><span></span><span></span><span></span></div>`;
-        } else {
-          messageEl.className = 'max-w-[80%] bg-white/10 border border-white/10 rounded-xl rounded-bl-lg p-3 text-sm';
-          messageEl.innerHTML = text.replace(/\n/g, '<br>');
-        }
-        chatbotMessages.appendChild(messageEl);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-      };
-
-      const intents = [
-        {key:'recruiter', test:/recruit|cv|resume|résumé|hire/i, reply:'Here’s the fast lane for recruiters: background → highlights → CV download.', actions:['#about','/Bradley_Fernandes_CV.pdf']},
-        {key:'investor', test:/invest|roi|traction|market/i, reply:'ROI snapshots and experiments most relevant to investors.', actions:['#stage-3','#stage-4']},
-        {key:'collab', test:/partner|collab|together|freelance|contract/i, reply:'Let’s scope a small win: pick an experiment and we’ll tailor it.', actions:['#stage-3','#contact']},
-        {key:'okta', test:/okta|iam|identity/i, reply:'Identity + AI overview and outcomes.', actions:['#stage-3','#stage-4']},
-      ];
-
-      function getAiResponse(q){
-        for (const i of intents) if (i.test.test(q)) {
-          return `${i.reply}\n\n• Open: ${i.actions.join(' → ')}`;
-        }
-        if (/framework|method|how/i.test(q))
-          return "Method in one line: Principle → Problem → Execution (Product + Services) → Outcomes, with AI as a multiplier.";
-        return "Tell me if you’re a recruiter, investor, or collaborator — I’ll guide you to the right section in one click.";
-      }
-
-      const processUserMessage = (userMessage) => {
-        addMessage('user', userMessage);
-        chatbotInput.value = '';
-        addMessage('ai', '', true);
-        setTimeout(() => {
-          const thinkingBubble = document.getElementById('thinking-bubble');
-          if (thinkingBubble) thinkingBubble.remove();
-          const aiResponse = getAiResponse(userMessage);
-          addMessage('ai', aiResponse);
-        }, 1200);
-      };
-
-      chatbotInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && chatbotInput.value.trim() !== '') {
-          processUserMessage(chatbotInput.value.trim());
-        }
-      });
-      chatbotQuickReplies.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-          processUserMessage(e.target.textContent);
-        }
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
